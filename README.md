@@ -1,43 +1,43 @@
-## September update:
+## Сентябрьское обновление:
 
-There are a lot of updates to this repo lately:
+В последнее время в этом репозитории имеется много обновлений.
 
-Added more code examples:
+Добавлены дополнительные примеры кода:
 
-- Added UnitOfWork
-- All Domain Events can now be executed in a single database transaction using a UnitOfWork
-- Added Wallet module to show an example of using a UnitOfWork together with Domain Events
-- Added BDD tests example
-- Added GraphQL examples
-- Added Domain Events
+- Добавлен UnitOfWork.
+- Все доменные события теперь могут выполняться в одной транзакции базы данных с помощью UnitOfWork.
+- Добавлен модуль Wallet, чтобы показать пример использования UnitOfWork вместе с доменными событиями.
+- Добавлен пример тестов BDD.
+- Добавлены примеры GraphQL.
+- Добавлены доменные события.
 
-Refactoring:
+Рефакторинг:
 
-- Refactored Domain Events and Domain Events Handlers
-- Commands are now plain objects
-- Moved generic files to /libs directory
-- Refactored Entity/Aggregate creation
-- Using a command bus instead of importing a service directly
-- And more
+- Рефакторинг доменных событий и обработчиков доменных событий.
+- Команды теперь являются простыми объектами.
+- Общие файлы перемещены в каталог `/libs`.
+- Реорганизованно создание сущности / агрегата.
+- Использование командной шины вместо прямого импорта сервиса.
+- И многое другое.
 
-Updates in readme and code:
+Обновления в файле `readme` и коде:
 
-- My opinion on some topics evolve over time so readme and code gets updated constantly.
-- Added more resources and topics to readme
+- Мое мнение по некоторым темам со временем меняется, поэтому файл `readme` и код постоянно обновляются.
+- В `readme` добавлены дополнительные ресурсы и темы.
 
-# Domain-Driven Hexagon
+# Предметно-ориентированный шестиугольник
 
-Main emphasis of this project is to provide recommendations on how to design software applications. In this readme are presented some of the techniques, tools, best practices, architectural patterns and guidelines gathered from different sources.
+Основной упор в этом проекте сделан на предоставление рекомендаций по разработке программных приложений. В этом файле `readme` представлены некоторые техники, инструменты, лучшие практики, архитектурные шаблоны и рекомендации, собранные из разных источников.
 
-**Everything below should be seen as a recommendation**. Keep in mind that different projects have different requirements, so any pattern mentioned in this readme can be replaced or skipped if needed.
+**Все, что ниже, следует рассматривать как рекомендацию**. Имейте в виду, что у разных проектов разные требования, поэтому любой шаблон, упомянутый в этом файле `readme`, при необходимости можно заменить или игнорировать.
 
-Code examples are written using [NodeJS](https://nodejs.org/en/), [TypeScript](https://www.typescriptlang.org/), [NestJS](https://docs.nestjs.com/) framework and [Typeorm](https://www.npmjs.com/package/typeorm) for the database access.
+Примеры кода написаны с использованием [NodeJS](https://nodejs.org/en/), [TypeScript](https://www.typescriptlang.org/), фреймворка [NestJS](https://docs.nestjs.com/) и [Typeorm](https://www.npmjs.com/package/typeorm) для доступа к базе данных.
 
-Though patterns and principles presented here are **framework/language agnostic**, so above technologies can be easily replaced with any alternative. No matter what language or framework is used, any application can benefit from principles described below.
+Хотя шаблоны и принципы, представленные здесь, **не зависят от фреймворка / языка**, указанные выше технологии можно легко заменить любой альтернативой. Независимо от того, какой язык или фреймворк используется, для любого приложения можно извлечь выгоду из принципов, описанных ниже.
 
-**Note**: code examples are adapted to TypeScript and mentioned above frameworks so may not fit well for other languages. Also remember that code examples presented here are just examples and must be changed according to project's needs or personal preference.
+**Примечание**: примеры кода адаптированы к TypeScript и упомянутым выше фреймворкам, поэтому могут не подходить для других языков. Также помните, что представленные здесь примеры кода являются всего лишь примерами и должны быть изменены в соответствии с требованиями проекта или личными предпочтениями.
 
-## Table of Contents
+<!-- ## Table of Contents
 
 - [Architecture](#Architecture)
 
@@ -99,215 +99,215 @@ Though patterns and principles presented here are **framework/language agnostic*
   - [Documentation](#Documentation)
   - [Blogs](#Blogs)
   - [Videos](#Videos)
-  - [Books](#Books)
+  - [Books](#Books) -->
 
-# Architecture
+# Архитектура
 
-Mainly based on:
+Основывается на следующих концепциях:
 
-- [Domain-Driven Design (DDD)](https://en.wikipedia.org/wiki/Domain-driven_design)
-- [Hexagonal (Ports and Adapters) Architecture ](https://blog.octo.com/en/hexagonal-architecture-three-principles-and-an-implementation-example/)
-- [Secure by Design](https://www.manning.com/books/secure-by-design)
-- [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- [Onion Architecture](https://herbertograca.com/2017/09/21/onion-architecture/)
-- [SOLID Principles](https://en.wikipedia.org/wiki/SOLID)
-- [Software Design Patterns](https://refactoring.guru/design-patterns/what-is-pattern)
+- [Предметно-ориентированное проектирование (DDD)](https://en.wikipedia.org/wiki/Domain-driven_design)
+- [Гексагональная архитектура (порты и адаптеры)](https://blog.octo.com/en/hexagonal-architecture-three-principles-and-an-implementation-example/)
+- [Безопасность по дизайну](https://www.manning.com/books/secure-by-design)
+- [Чистая архитектура](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [Луковая архитектура](https://herbertograca.com/2017/09/21/onion-architecture/)
+- [Принципы SOLID](https://en.wikipedia.org/wiki/SOLID)
+- [Шаблоны проектирования программного обеспечения](https://refactoring.guru/design-patterns/what-is-pattern)
 
-And many other sources (more links below in every chapter).
+И многие другие источники (дополнительные ссылки ниже в каждой главе).
 
-Before we begin, here are the PROS and CONS of using a complete architecture like this:
+Прежде чем мы начнем, вот ПЛЮСЫ и МИНУСЫ использования такой полной архитектуры.
 
-## Pros:
+## Плюсы:
 
-- Independent of external frameworks, technologies, databases, etc. Frameworks and external resources can be plugged/unplugged with much less effort.
-- Easily testable and scalable.
-- More secure. Some security principles are baked in design itself.
-- The solution can be worked on and maintained by different teams, without stepping on each other's toes.
-- Easier to add new features. As the system grows over time, the difficulty in adding new features remains constant and relatively small.
-- If the solution is properly broken apart along [bounded context](https://martinfowler.com/bliki/BoundedContext.html) lines, it becomes easy to convert pieces of it into microservices if needed.
+- Независимость от внешних фреймворков, технологий, баз данных и т. д. Фреймворки и внешние ресурсы могут быть подключены / отключены с гораздо меньшими усилиями.
+- Легкая тестируемость и масштабируемость.
+- Повышенная безопасность. Некоторые принципы безопасности заложены в самом дизайне.
+- Над решением задач и поддержкой могут работать разные команды, не наступая друг другу на пятки.
+- Легче добавлять новый функционал. По мере роста системы во времени сложность добавления нового функционала остается постоянной и относительно небольшой.
+- Если решение задач правильно разбито по [ограниченным контекстным](https://martinfowler.com/bliki/BoundedContext.html) линиям, то при необходимости легче преобразовать их части в микросервисы.
 
-## Cons:
+## Минусы:
 
-- This is a sophisticated architecture which requires a firm understanding of quality software principles, such as SOLID, Clean/Hexagonal Architecture, Domain-Driven Design, etc. Any team implementing such a solution will almost certainly require an expert to drive the solution and keep it from evolving the wrong way and accumulating technical debt.
+- Это сложная архитектура, которая требует твердого понимания принципов качества программного обеспечения, таких как SOLID, чистая / гексагональная архитектура, предметно-ориентированное проектирование и т.д. Любой команде, внедряющей такое решение, почти наверняка потребуется эксперт, который будет управлять решением и предотвратит неправильное его развитие и накопление технического долга.
 
-- Some of the practices presented here are not recommended for small-medium sized applications with not a lot of business logic. There is added up-front complexity to support all those building blocks and layers, boilerplate code, abstractions, data mapping etc. thus implementing a complete architecture like this is generally ill-suited to simple [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) applications and could over-complicate such solutions. Some of the described below principles can be used in a smaller sized applications but must be implemented only after analyzing and understanding all pros and cons.
+- Некоторые из представленных здесь практик не рекомендуются для приложений малого и среднего размера с небольшим количеством бизнес-логики. Это добавит ​​предварительную сложность для поддержки всех этих строительных блоков и слоев, шаблонного кода, абстракций, сопоставления данных и т. д. Таким образом, реализация полной архитектуры, подобной этой, обычно не подходит для простого приложения в стиле [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) и может быть чрезмерно усложнено такими решениями. Некоторые из описанных ниже принципов могут быть использованы в приложениях меньшего размера, но должны быть реализованы только после анализа и понимания всех плюсов и минусов.
 
-# Diagram
+# Диаграмма
 
-![Domain-Driven Hexagon](assets/images/DomainDrivenHexagon.png)
-<sup>Diagram is mostly based on [this one](https://github.com/hgraca/explicit-architecture-php#explicit-architecture-1) + others found online</sup>
+![Предметно-ориентированный шестиугольник](assets/images/DomainDrivenHexagon.png)
+<sup>Диаграмма в основана на [этой](https://github.com/hgraca/explicit-architecture-php#explicit-architecture-1) и других, найденных в Интернете</sup>
 
-In short, data flow looks like this (from left to right):
+Вкратце, поток данных выглядит так (слева направо):
 
-- Request/CLI command/event is sent to the controller using plain DTO;
-- Controller parses this DTO, maps it to a Command/Query object format and passes it to a Application service;
-- Application service handles this Command/Query; it executes business logic using domain services and/or entities and uses the infrastructure layer through ports;
-- Infrastructure layer uses a mapper to convert data to format that it needs, uses repositories to fetch/persist data and adapters to send events or do other I/O communications, maps data back to domain format and returns it back to Application service;
-- After application service finishes doing it's job, it returns data/confirmation back to Controllers;
-- Controllers return data back to the user (if application has presenters/views, those are returned instead).
+- Запрос, команда CLI или событие отправляется контроллеру с использованием простого DTO;
+- Контроллер анализирует этот DTO, сопоставляет его с форматом объекта команды или запроса и передает его в прикладную службу;
+- Прикладная служба обрабатывает эту команду или запрос; она исполняет бизнес-логику с использованием доменных служб и / или сущностей и использует инфраструктурный уровень через порты;
+- Инфраструктурный уровень использует преобразователь для преобразования данных в необходимый формат, использует репозитории для извлечения / сохранения данных и адаптеры для отправки событий или выполнения других операций ввода-вывода, преобразовывает данные обратно в доменный формат и возвращает их обратно в прикладную службу;
+- После того, как прикладная служба завершает свою работу, она возвращает данные или подтверждение о выполненных операциях обратно в контроллеры;
+- Контроллеры возвращают данные обратно пользователю (если в приложении есть представления или презентаторы, то возвращаются они).
 
-Each layer is in charge of it's own logic and has building blocks that usually should follow a [Single-responsibility principle](https://en.wikipedia.org/wiki/Single-responsibility_principle) when possible and when it makes sense (for example, using `Repositories` only for database access, using `Entities` for business logic etc).
+Каждый уровень отвечает за свою логику и имеет строительные блоки, которые обычно должны следовать [принципу единой ответственности](https://en.wikipedia.org/wiki/Single-responsibility_principle), когда это возможно и когда это имеет смысл (например, использование репозиториев только для доступа к базе данных, использование сущностей для бизнес-логики и т. д.).
 
-**Keep in mind** that different projects can have more or less steps/layers/building blocks than described here. Add more if application requires it, and skip some if application is not that complex and doesn't need all that abstraction.
+**Имейте в виду**, что в разных проектах может быть больше или меньше шагов / уровней (слоев) / строительных блоков, чем описано здесь. Добавьте больше, если этого требует приложение, либо игнорируйте, если приложение не такое сложное и не требует всей этой абстракции.
 
-General recommendation for any project: analyze how big/complex the application will be, find a compromise and use as many layers/building blocks as needed for the project and skip ones that may over-complicate things.
+Общая рекомендация для любого проекта: проанализируйте, насколько большим / сложным будет приложение, найдите компромисс и используйте столько уровней / строительных блоков, сколько необходимо для проекта, и игнорируйте те, которые могут чрезмерно усложнить ситуацию.
 
-More in details on each step below.
+Подробнее о каждом шаге ниже.
 
-# Modules
+# Модули
 
-This project's code examples use separation by modules (also called components). Each module gets its own folder with a dedicated codebase, and each use case inside that module gets it's own folder to store most of the things it needs (this is also called _Vertical Slicing_).
+В примерах кода этого проекта используется разделение по модулям (компонентам). Каждый модуль получает свою собственную папку с выделенной кодовой базой, и каждый сценарий использования внутри этого модуля получает свою собственную папку для хранения большинства необходимых ему вещей (это также называется _Вертикальная нарезка_).
 
-It is easier to work on things that change together if those things are gathered relatively close to each other. Try not to create dependencies between modules or use cases, move shared logic into a separate files and make both depend on that instead of depending on each other.
+Легче работать над вещами, которые меняются вместе, если эти вещи собраны относительно близко друг к другу. Старайтесь не создавать зависимости между модулями или сценариями использования, переместите общую логику в отдельные файлы и сделайте так, чтобы они зависели от них, а не друг от друга.
 
-Try to make every module independent and keep interactions between modules minimal. Think of each module as a mini application bounded by a single context. Try to avoid direct imports between modules (like importing a service from other domain) since this creates [tight coupling](<https://en.wikipedia.org/wiki/Coupling_(computer_programming)>). Communication between modules can be done using events, public interfaces or through a port/adapter (more on that topic below).
+Постарайтесь сделать каждый модуль независимым и минимизировать взаимодействие между модулями. Думайте о каждом модуле как о мини-приложении, ограниченном одним контекстом. Старайтесь избегать прямого импорта между модулями (например, импорта службы из другого домена), поскольку это создает [тесную связанность](https://en.wikipedia.org/wiki/Coupling_(computer_programming)). Взаимодействие между модулями может осуществляться с помощью событий, общедоступных интерфейсов или через порт / адаптер (подробнее об этом ниже).
 
-This approach ensures [loose coupling](https://en.wikipedia.org/wiki/Loose_coupling), and, if bounded contexts are defined and designed properly, each module can be easily separated into a microservice if needed without touching any domain logic.
+Этот подход обеспечивает [слабую связанность](https://en.wikipedia.org/wiki/Loose_coupling), и, если ограниченные контексты определены и правильно спроектированы, каждый модуль можно легко разделить на микросервис, если это необходимо, не затрагивая доменную логику.
 
-Read more about modular programming benefits:
+Узнайте больше о преимуществах модульного программирования:
 
 - [Modular programming: Beyond the spaghetti mess](https://www.tiny.cloud/blog/modular-programming-principle/).
 
-Each module is separated in layers described below.
+Каждый модуль разделен на уровни, описанные ниже.
 
-# Application Core
+# Ядро приложения
 
-This is the core of the system which is built using [DDD building blocks](https://dzone.com/articles/ddd-part-ii-ddd-building-blocks):
+Ядро ​​системы, компонуется с использованием [строительных блоков DDD](https://dzone.com/articles/ddd-part-ii-ddd-building-blocks):
 
-### Domain layer:
+### Доменный уровень:
 
-- Entities
-- Aggregates
-- Domain Services
-- Value Objects
-- Domain Errors
+- Сущности
+- Агрегаты
+- Доменные службы
+- Объекты-значения
+- Доменные ошибки
 
-### Application layer:
+### Прикладной уровень:
 
-- Application Services
-- Commands and Queries
-- Ports
+- Прикладные службы
+- Команды и запросы
+- Порты
 
-_More building blocks may be added if needed._
+_При необходимости могут быть добавлены другие строительные блоки._
 
 ---
 
-# Application layer
+# Прикладной уровень
 
-## Application Services
+## Прикладные службы
 
-Are also called "Workflow Services", "Use Cases", "Interactors" etc.
-These services orchestrate the steps required to fulfill the commands imposed by the client.
+Другие названия: «Службы рабочего процесса», «Сценарии использования», «Интеракторы» и т. д.
+Эти службы организуют шаги, необходимые для выполнения команд, поступающих от клиента.
 
-- Typically used to orchestrate how the outside world interacts with your application and performs tasks required by the end users.
-- Contain no domain-specific business logic;
-- Operate on scalar types, transforming them into Domain types. A scalar type can be considered any type that's unknown to the Domain Model. This includes primitive types and types that don't belong to the Domain.
-- Application services declare dependencies on infrastructural services required to execute domain logic (by using ports).
-- Are used in order to fetch domain `Entities` (or anything else) from database/outside world through ports;
-- Execute other out-of-process communications through `Ports` (like event emits, sending emails etc);
-- In case of interacting with one Entity/Aggregate, executes its methods directly;
-- In case of working with multiple Entities/Aggregates, uses a `Domain Service` to orchestrate them;
-- Are basically a `Command`/`Query` handlers;
-- Should not depend on other application services since it may cause problems (like cyclic dependencies);
+- Обычно используются для управления взаимодействием внешнего мира с вашим приложением и выполнения задач, требуемых конечными пользователями.
+- Не содержат доменной бизнес-логики;
+- Работают со скалярными типами, преобразовывая их в доменные типы. Скалярным типом можно считать любой тип, неизвестный доменной модели. Сюда входят примитивные типы и типы, не принадлежащие домену.
+- Прикладные службы объявляют зависимости от инфраструктурных служб, необходимых для исполнения доменной логики (с использованием портов).
+- Используются для получения доменных сущностей (или чего-либо еще) из базы данных / внешнего мира через порты;
+- Осуществляют другие внепроцессные коммуникации через порты (например, отправка сообщений о событиях, отправка электронных писем и т. д.);
+- В случае взаимодействия с одной сущностью / агрегатом, выполняют их методы напрямую;
+- В случае работы с несколькими сущностями / агрегатами, использует доменную службу для их оркестровки;
+- По сути, являются обработчиками команд / запросов;
+- Не должны зависеть от других прикладных служб, так как это может вызвать проблемы (например, циклические зависимости).
 
-One service per use case is considered a good practice.
+Хорошей практикой считается использование одной службы для каждого сценария использования.
 
 <details>
-<summary>What are "Use Cases"?</summary>
+<summary>Что такое «Сценарии использования»?</summary>
 
 [wiki](https://en.wikipedia.org/wiki/Use_case):
 
-> In software and systems engineering, a use case is a list of actions or event steps typically defining the interactions between a role (known in the Unified Modeling Language as an actor) and a system to achieve a goal.
+> В программной и системной инженерии, **сценарий использования** – это список действий или этапов событий, обычно определяющих взаимодействия между ролью (известной в Унифицированном языке моделирования (UML) как субъект) и системой для достижения цели.
 
-Use cases are, simply said, list of actions required from an application.
+Сценарии использования – это просто список действий, требуемых от приложения.
 
 ---
 
 </details>
 
-Example file: [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts)
+**Примеры**: [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts)
 
-More about services:
+Подробнее о службах:
 
 - [Domain-Application-Infrastructure Services pattern](https://badia-kharroubi.gitbooks.io/microservices-architecture/content/patterns/tactical-patterns/domain-application-infrastructure-services-pattern.html)
 - [Services in DDD finally explained](https://developer20.com/services-in-ddd-finally-explained/)
 
 <details>
-<summary>Notes: Interfaces for each Use Case and Local DTOs</summary>
+<summary>Примечания: интерфейсы для каждого сценария использования и локальные DTO</summary>
 
-### Interfaces for each use case
+### Интерфейсы для каждого сценария использования
 
-Some people prefer having an interface for each use case (Driving Port), which `Application Service` implements and a `Controller` depends on. This is a viable option, but this project doesn't use interfaces for every use case for simplicity: it makes sense using interfaces when there are **multiple** implementations of a workflow, but use cases are too specific and should not have multiple implementations of the same workflow (**one** service per use case rule mentioned above). `Controllers` naturally depend on a concrete implementation thus making interfaces redundant. More on this topic [here](https://stackoverflow.com/questions/62818105/interface-for-use-cases-application-services).
+Некоторые люди предпочитают иметь интерфейс для каждого сценария использования (управляющий порт), который прикладная служба реализует и от которого зависит контроллер. Это жизнеспособный вариант, но этот проект попросту не использует интерфейсы для каждого сценария использования: имеет смысл использовать интерфейсы, когда существует **несколько** реализаций рабочего процесса, но сценарии использования слишком специфичны и не должны иметь несколько реализаций одного и того же рабочего процесса (**одна** служба для каждого сценария использования – правило упомянутое выше). Контроллеры, естественно, зависят от конкретной реализации, что делает интерфейсы избыточными. Подробнее об этой теме [здесь](https://stackoverflow.com/questions/62818105/interface-for-use-cases-application-services).
 
-### Local DTOs
+### Локальные DTO
 
-Another thing that can be seen in some projects is local DTOs. Some people prefer never to use domain objects (like entities) outside of core (in `controllers`, for example), and are using DTOs instead. This project doesn't use this technique to avoid extra interfaces and data mapping. Either to use local DTOs or not is a matter of taste.
+Еще одна вещь, которую можно увидеть в некоторых проектах, – это локальные DTO. Некоторые люди предпочитают никогда не использовать объекты домена (например, сущности) вне ядра (например, в контроллерах) и вместо этого используют DTO. Этот проект не использует эту технику, чтобы избежать дополнительных интерфейсов и сопоставления данных. Использовать локальные DTO или нет – дело вкуса.
 
-[Here](https://martinfowler.com/bliki/LocalDTO.html) are Martin Fowler's thoughts on local DTOs, in short (quote):
+[Здесь](https://martinfowler.com/bliki/LocalDTO.html) *Martin Fowler* рассуждает о локальных DTO, вкратце (цитата):
 
-> Some people argue for them(DTOs) as part of a Service Layer API because they ensure that service layer clients aren't dependent upon an underlying Domain Model. While that may be handy, I don't think it's worth the cost of all of that data mapping.
+> Некоторые люди аргументируют эти (DTO) как часть API служебного уровня, потому что они гарантируют, что клиенты служебного уровня не зависят от базовой модели предметной области. Хотя это может быть удобно, я не думаю, что это стоит затрат на все это сопоставление данных.
 
 </details>
 
 ---
 
-## Commands and Queries
+## Команды и запросы
 
-This principle is called [Command–Query Separation(CQS)](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation). When possible, methods should be separated into `Commands` (state-changing operations) and `Queries` (data-retrieval operations). To make a clear distinction between those two types of operations, input objects can be represented as `Commands` and `Queries`. Before DTO reaches the domain, it is converted into a `Command`/`Query` object.
+Этот принцип называется [Разделением команд и запросов (CQS)](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation). По возможности методы должны быть разделены на «Команды» (операции изменения состояния) и «Запросы» (операции извлечения данных). Чтобы провести четкое различие между этими двумя типами операций, входные объекты могут быть представлены как команды и запросы. Прежде чем DTO достигнет домена, он преобразуется в объект `Command` или `Query`.
 
-### Commands
+### Команды
 
-`Command` is an object that signals user intent, for example `CreateUserCommand`. It describes a single action (but does not perform it).
+Команда – это объект, который сигнализирует о намерениях пользователя, например `CreateUserCommand`. Он описывает единичное действие (но не выполняет его).
 
-`Commands` are used for state-changing actions, like creating new user and saving it to the database. Create, Update and Delete operations are considered as state-changing.
+Команды используются для действий, изменяющих состояние, таких как создание нового пользователя и сохранение его в базе данных. Операции создания, обновления и удаления считаются изменяющими состояние.
 
-Data retrieval is responsibility of `Queries`, so `Command` methods should not return business data.
+За получение данных отвечают запросы, поэтому методы команды не должны возвращать бизнес-данные.
 
-Some CQS purists may say that a `Command` shouldn't return anything at all. But you will need at least an ID of a created item to access it later. To achieve that you can let clients generate a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) (more info here: [CQS versus server generated IDs](https://blog.ploeh.dk/2014/08/11/cqs-versus-server-generated-ids/)).
+Некоторые сторонники CQS могут сказать, что команда вообще ничего не должна возвращать. Но вам понадобится хотя бы идентификатор созданного элемента, чтобы получить к нему доступ позже. Для этого вы можете позволить клиентам генерировать [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) ​​(подробнее здесь: [CQS versus server generated IDs](https://blog.ploeh.dk/2014/08/11/cqs-versus-server-generated-ids/)).
 
-Though, violating this rule and returning some metadata, like `ID` of a created item, redirect link, confirmation message, status, or other metadata is a more practical approach than following dogmas.
+Тем не менее, нарушение этого правила и возврат некоторых метаданных, таких как `ID` созданного элемента, ссылки перенаправления, подтверждающего сообщения, статуса или других метаданных, является более практичным подходом, чем следование догмам.
 
-All changes done by `Commands` (or by events or anything else) across multiple aggregates should be saved in a single database transaction (if you are using a single database). This means that inside a single process, one command/request to your application usually should execute **only one** [transactional operation](https://en.wikipedia.org/wiki/Database_transaction) to save **all** changes (or cancel **all** changes of that command/request in case if something fails). This should be done to maintain consistency. To do that something like [Unit of Work](https://www.c-sharpcorner.com/UploadFile/b1df45/unit-of-work-in-repository-pattern/) or similar patterns can be used. Example: [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) - notice how it gets a transactional repository from `this.unitOfWork`.
+Все изменения, сделанные с помощью команд (или событий или чего-либо еще) в нескольких агрегатах, должны быть сохранены в одной транзакции базы данных (если вы используете одну базу данных). Это означает, что внутри одного процесса одна команда / запрос к вашему приложению обычно должны выполнять **только одну** [транзакционную операцию](https://en.wikipedia.org/wiki/Database_transaction), чтобы сохранить **все** изменения (или отменить **все** изменения этой команды / запроса в случае неудачи). Это нужно делать для сохранения консистентности. Для этого можно использовать что-то вроде [Единица работы](https://www.c-sharpcorner.com/UploadFile/b1df45/unit-of-work-in-repository-pattern/) или аналогичные шаблоны. **Примеры**: [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – обратите внимание, как выполняется получение транзакционного репозитория из `this.unitOfWork`.
 
-**Note**: `Command` is similar but not the same as described here: [Command Pattern](https://refactoring.guru/design-patterns/command). There are multiple definitions across the internet with similar but slightly different implementations.
+**Примечание**: команда похожа, но не является тем же самым, что описано здесь: [Шаблон Команда](https://refactoring.guru/design-patterns/command). В интернете есть несколько определений с похожими, но немного отличающимися реализациями.
 
-To execute a command you can use a `Command Bus` instead of importing a service directly. This will decouple a command Invoker from a Receiver so you can send your commands from anywhere without creating coupling.
+Для выполнения команды вы можете использовать «Командную шину» вместо прямого импорта службы. Это отделит командира (*Invoker*) команды от исполнителя (*Receiver*), чтобы вы могли отправлять свои команды откуда угодно, не создавая связанности.
 
-Example files:
+**Примеры**:
 
-- [create-user.command.ts](src/modules/user/commands/create-user/create-user.command.ts) - a command Object
-- [create-user.message.controller.ts](src/modules/user/commands/create-user/create-user.message.controller.ts) - controller executes a command using a bus. This decouples it from a command handler.
-- [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) - a command handler
-- [command-handler.base.ts](src/libs/ddd/domain/base-classes/command-handler.base.ts) - command handler base class that wraps execution in a Unit of Work.
+- [create-user.command.ts](src/modules/user/commands/create-user/create-user.command.ts) – объект команды.
+- [create-user.message.controller.ts](src/modules/user/commands/create-user/create-user.message.controller.ts) – контроллер выполняет команду, используя шину. Это отделяет его от обработчика команд.
+- [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – обработчик команд.
+- [command-handler.base.ts](src/libs/ddd/domain/base-classes/command-handler.base.ts) – базовый класс обработчика команд, который оборачивает выполнение в единицу работы.
 
-Read more:
+**Подробнее об этом**:
 
 - [What is a command bus and why should you use it?](https://barryvanveen.nl/blog/49-what-is-a-command-bus-and-why-should-you-use-it)
 
-### Queries
+### Запросы
 
-`Query` is similar to a `Command`. It signals user intent to find something and describes how to do it.
+Запрос похож на команду. Он сигнализирует о намерении пользователя что-то найти и описывает, как это сделать.
 
-`Query` is used for retrieving data and should not make any state changes (like writes to the database, files etc).
+Запрос используется для получения данных и не должен вносить никаких изменений в состояние (например, запись в базу данных, файлы и т. д.).
 
-Queries are usually just a data retrieval operation and have no business logic involved; so, if needed, application and domain layers can be bypassed completely. Though, if some additional non-state changing logic has to be applied before returning a query response (like calculating something), it can be done in a application/domain layer.
+Запросы обычно представляют собой всего лишь операцию по извлечению данных и не содержат бизнес-логики; таким образом, при необходимости можно полностью обойти прикладной и доменный уровни. Хотя, если перед возвратом ответа на запрос (например, вычисление чего-либо) необходимо применить некоторую дополнительную логику, не изменяющую состояние, то это можно сделать в прикладном или доменном уровне.
 
-Similarly to Commands, Queries can use a `Query Bus`.
+Подобно командам, запросы могут использовать шину запросов.
 
-Example files:
+**Примеры**:
 
-- [find-users.query.ts](src/modules/user/queries/find-users/find-users.query.ts) - query object
-- [find-users.query-handler.ts](src/modules/user/queries/find-users/find-users.query-handler.ts) - example of a query bypassing application/domain layers completely
+- [find-users.query.ts](src/modules/user/queries/find-users/find-users.query.ts) – объект запроса.
+- [find-users.query-handler.ts](src/modules/user/queries/find-users/find-users.query-handler.ts) – пример запроса, полностью обходящего прикладной и доменный уровни.
 
 ---
 
-By enforcing `Command` and `Query` separation, the code becomes simpler to understand. One changes something, another just retrieves data.
+Благодаря принудительному разделению команд и запросов код становится проще для понимания. Первые что-то меняют, вторые просто извлекают данные.
 
-Also, following CQS from the start will facilitate separating write and read models into different databases (CQRS) if someday in the future the need for it arises.
+Кроме того, следование CQS с самого начала упростит разделение моделей записи и чтения в разные базы данных (CQRS), если когда-нибудь в будущем в этом возникнет необходимость.
 
-**Note**: this repo uses [NestJS CQRS](https://docs.nestjs.com/recipes/cqrs) package that provides a command/query bus.
+**Примечание**: в этом репозитории используется пакет [NestJS CQRS](https://docs.nestjs.com/recipes/cqrs), который предоставляет шину команд / запросов.
 
-Read more about CQS and CQRS:
+Подробнее о CQS и CQRS:
 
 - [Command Query Segregation](https://khalilstemmler.com/articles/oop-design-principles/command-query-segregation/).
 - [Exposing CQRS Through a RESTful API](https://www.infoq.com/articles/rest-api-on-cqrs/)
@@ -316,166 +316,166 @@ Read more about CQS and CQRS:
 
 ---
 
-## Ports
+## Порты
 
-Ports (for Driven Adapters) are interfaces that define contracts which must be implemented by infrastructure adapters in order to execute some action more related to technology details rather than business logic. Ports act like abstractions for technology details that business logic does not care about.
+Порты (для управляемых адаптеров) – это интерфейсы, которые определяют контракты, которые должны быть реализованы адаптерами инфраструктуры для выполнения некоторого действия, в большей степени связанного с техническими деталями, а не с бизнес-логикой. Порты действуют как абстракции для технологических деталей, которые бизнес-логику не волнуют.
 
-In Application Core **dependencies point inwards**. Outer layers can depend on inner layers, but inner layers never depend on outer layers. Application Core shouldn't depend on frameworks or access external resources directly. Any external calls to out-of-process resources/retrieval of data from remote processes should be done through `ports` (interfaces), with class implementations created somewhere in infrastructure layer and injected into application's core ([Dependency Injection](https://en.wikipedia.org/wiki/Dependency_injection) and [Dependency Inversion](https://en.wikipedia.org/wiki/Dependency_inversion_principle)). This makes business logic independent of technology, facilitates testing, allows to plug/unplug/swap any external resources easily making application modular and [loosely coupled](https://en.wikipedia.org/wiki/Loose_coupling).
+В ядре приложения **зависимости указывают внутрь**. Внешние уровни могут зависеть от внутренних уровней, но внутренние уровни никогда не зависят от внешних уровней. Ядро приложения не должно зависеть от фреймворков или напрямую обращаться к внешним ресурсам. Любые внешние вызовы внепроцессных ресурсов или извлечение данных из удаленных процессов должны выполняться через порты (интерфейсы), при этом реализации классов создаются где-то на инфраструктурном уровне и внедряются в ядро ​​приложения ([Внедрение зависимостей](https://en.wikipedia.org/wiki/Dependency_injection) и [Инверсия зависимостей](https://en.wikipedia.org/wiki/Dependency_inversion_principle)). Это делает бизнес-логику независимой от технологии, упрощает тестирование, позволяет легко подключать, отключать или менять любые внешние ресурсы, делая приложение модульным и [слабосвязанным](https://en.wikipedia.org/wiki/Loose_coupling).
 
-- Ports are basically just interfaces that define what has to be done and don't care about how it is done.
-- Ports can be created to abstract I/O operations, technology details, invasive libraries, legacy code etc. from the Domain.
-- Ports should be created to fit the Domain needs, not simply mimic the tools APIs.
-- Mock implementations can be passed to ports while testing. Mocking makes your tests faster and independent from the environment.
-- When designing ports, remember about [Interface segregation principle](https://en.wikipedia.org/wiki/Interface_segregation_principle). Split large interfaces into a smaller ones when it makes sense, but also keep in mind to not overdo it when not necessary.
-- Ports can also help to delay decisions. Domain layer can be implemented before even deciding what technologies (frameworks, database etc) will be used.
+- Порты – это в основном просто интерфейсы, которые определяют, что нужно сделать, и не заботятся о том, как это делается.
+- Порты могут быть созданы для абстрагирования операций ввода-вывода, технологических деталей, инвазивных библиотек, устаревшего кода и т. д. из домена.
+- Порты должны создаваться в соответствии с потребностями домена, а не просто имитировать API инструментов.
+- Во время тестирования в порты могут быть переданы фиктивные реализации. Имитация (*mocking*) делает ваши тесты более быстрыми и независимыми от окружения.
+- При проектировании портов помните о [принципе разделения интерфейсов](https://en.wikipedia.org/wiki/Interface_segregation_principle). Разделяйте большие интерфейсы на более мелкие, когда это имеет смысл, но не переусердствуйте, если в этом нет необходимости.
+- Порты также могут помочь отложить принятие решений. Доменный уровень может быть реализован еще до принятия решения о том, какие технологии (фреймворки, базы данных и т. д.) будут использоваться.
 
-**Note**: since most ports implementations are injected and executed in application service, Application Layer can be a good place to keep those ports. But there are times when Domain Layer's business logic depends on executing some external resource, in that case those ports can be put in a Domain Layer.
+**Примечание**: поскольку большинство реализаций портов внедряются и выполняются в прикладных службах, то прикладной уровень может быть хорошим местом для хранения этих портов. Но бывают случаи, когда бизнес-логика доменного уровня зависит от результатов выполнения некоторого внешнего ресурса, то в этом случае эти порты могут быть помещены на доменный уровень.
 
-**Note**: creating ports in smaller applications/APIs may overcomplicate such solutions by adding unnecessary abstractions. Using concrete implementations directly instead of ports may be enough in such applications. Consider all pros and cons before using this pattern.
+**Примечание**: создание портов в небольших приложениях или API может чрезмерно усложнить такие решения добавлением ненужных абстракций. В таких приложениях может быть достаточно прямого использования конкретных реализаций вместо портов. Прежде чем использовать этот шаблон, рассмотрите все его плюсы и минусы.
 
-Example files:
+**Примеры**:
 
-- [repository.ports.ts](src/core/ports/repository.ports.ts)
-- [logger.port.ts](src/core/ports/logger.port.ts)
+- [repository.ports.ts](src/libs/ddd/domain/ports/repository.ports.ts)
+- [logger.port.ts](src/libs/ddd/domain/ports/logger.port.ts)
 
 ---
 
-# Domain Layer
+# Доменный уровень
 
-This layer contains application's business rules.
+Этот уровень содержит бизнес-правила приложения.
 
-Domain should only operate using domain objects, most important ones are described below.
+Домен должен работать только с объектами домена, наиболее важные из них описаны ниже.
 
-## Entities
+## Сущности
 
-Entities are the core of the domain. They encapsulate Enterprise wide business rules and attributes. An entity can be an object with properties and methods, or it can be a set of data structures and functions.
+Сущности – это ядро ​​домена. Они инкапсулируют бизнес-правила и атрибуты бизнеса. Сущность может быть объектом со свойствами и методами или набором структур данных и функций.
 
-Entities represent business models and express what properties a particular model has, what it can do, when and at what conditions it can do it. An example of business model can be a User, Product, Booking, Ticket, Wallet etc.
+Сущности представляют бизнес-модели и выражают, какими свойствами обладает конкретная модель, что она может делать, когда и при каких условиях она может это делать. Примером бизнес-модели может быть `User`, `Product`, `Booking`, `Ticket`, `Wallet` и т. д.
 
-Entities must always protect it's [invariant](https://en.wikipedia.org/wiki/Class_invariant):
+Сущность всегда должна сохранять [инвариант](https://en.wikipedia.org/wiki/Class_invariant):
 
-> Domain entities should always be valid entities. There are a certain number of invariants for an object that should always be true. For example, an order item object always has to have a quantity that must be a positive integer, plus an article name and price. Therefore, invariants enforcement is the responsibility of the domain entities (especially of the aggregate root) and an entity object should not be able to exist without being valid.
+> Сущности домена всегда должны быть действительными объектами. У объекта есть определенное количество инвариантов, которые всегда должны быть истинными. Например, объект элемента в заказе всегда должен иметь количество, которое должно быть положительным целым числом, а также название товара и цену. Следовательно, обеспечение соблюдения инвариантов является обязанностью сущностей домена (особенно корневого агрегата), и объект сущности не должен существовать, не будучи действительным (валидным).
 
-Entities:
+Сущность:
 
-- Contain Domain business logic. Avoid having business logic in your services when possible, this leads to [Anemic Domain Model](https://martinfowler.com/bliki/AnemicDomainModel.html) (domain services are exception for business logic that can't be put in a single entity).
-- Have an identity that defines it and makes it distinguishable from others. It's identity is consistent during its life cycle.
-- Equality between two entities is determined by comparing their identificators (usually its `id` field).
-- Can contain other objects, such as other entities or value objects.
-- Are responsible for collecting all the understanding of state and how it changes in the same place.
-- Responsible for the coordination of operations on the objects it owns.
-- Know nothing about upper layers (services, controllers etc).
-- Domain entities data should be modelled to accommodate business logic, not some database schema.
-- Entities must protect their invariants, try to avoid public setters - update state using methods and execute invariant validation on each update if needed (this can be a simple `validate()` method that checks if business rules are not violated by update).
-- Must be consistent on creation. Validate Entities and other domain objects on creation and throw an error on first failure. [Fail Fast](https://en.wikipedia.org/wiki/Fail-fast).
-- Avoid no-arg (empty) constructors, accept and validate all required properties through a constructor.
-- For optional properties that require some complex setting up, [Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) and [Builder Pattern](https://refactoring.guru/design-patterns/builder) can be used.
-- Make Entities partially immutable. Identify what properties shouldn't change after creation and make them `readonly` (for example `id` or `createdAt`).
+- Содержит бизнес-логику домена. По возможности избегайте использования бизнес-логики в своих службах, это приводит к [анемичной доменной модели](https://martinfowler.com/bliki/AnemicDomainModel.html) (доменные службы являются исключением для бизнес-логики, которую нельзя поместить в единую сущность).
+- Имеет идентичность, которая определяет ее и делает ее отличной от других. Ее идентичность сохраняется на протяжении всего жизненного цикла.
+- Равенство между двумя сущностями определяется путем сравнения их идентификаторов (обычно это поле `id`).
+- Может содержать другие объекты, например другие сущности или объекты-значения.
+- Отвечает за сбор всего, что связано с понимания состояния и того, как оно меняется в одном и том же месте.
+- Отвечает за координацию операций над принадлежащих ей объектами.
+- Ничего не знает о верхних уровнях (службах, контроллерах и т. д.).
+- Данные доменной сущности должны быть смоделированы с учетом бизнес-логики, а не схемы базы данных.
+- Сущности должны защищать свои инварианты, по возможности не содержать публичных сеттеров – обновлять состояние с помощью методов и при необходимости выполнять инвариантную валидацию при каждом обновлении (это может быть простой метод `validate()`, который проверяет, не нарушаются ли бизнес-правила при обновлении).
+- Должна быть консистентной при создании. Валидация сущностей и других доменных объектов при их создании и выброс первой возникшей ошибки. [Fail Fast](https://en.wikipedia.org/wiki/Fail-fast).
+- Избегайте использования конструкторов без аргументов (пустых), принимайте и валидируйте все требуемые свойства с помощью конструктора.
+- Для дополнительных свойств, требующих сложной настройки, могут быть использованы [Текучий интерфейс](https://en.wikipedia.org/wiki/Fluent_interface) и [шаблон Строитель](https://refactoring.guru/design-patterns/builder).
+- Делайте сущности частично неизменяемыми. Определите, какие свойства не должны изменяться после создания, и сделайте их доступными только для чтения (например, `id` или `createdAt`).
 
-**Note**: A lof of people tend to create one module per entity, but this approach is not very good. Each module may have multiple entities. One thing to keep in mind is that putting entities in a single module requires those entities to have related business logic, don't group unrelated entities in one module.
+**Примечание**: многие люди склонны создавать по одному модулю для каждой сущности, но этот подход не очень хорош. Каждый модуль может иметь несколько сущностей. Следует иметь в виду, что для помещения сущностей в один модуль необходимо, когда эти сущности имеют связанную бизнес-логику, против группировки несвязанных сущностей в одном модуле.
 
-Example files:
+**Примеры**:
 
 - [user.entity.ts](src/modules/user/domain/entities/user.entity.ts)
 
-Read more:
+**Подробнее об этом**:
 
 - [Domain Entity pattern](https://badia-kharroubi.gitbooks.io/microservices-architecture/content/patterns/tactical-patterns/domain-entity-pattern.html)
 - [Secure by design: Chapter 6 Ensuring integrity of state](https://livebook.manning.com/book/secure-by-design/chapter-6/)
 
 ---
 
-## Aggregates
+## Агрегаты
 
-[Aggregate](https://martinfowler.com/bliki/DDD_Aggregate.html) is a cluster of domain objects that can be treated as a single unit. It encapsulates entities and value objects which conceptually belong together. It also contains a set of operations which those domain objects can be operated on.
+[Агрегат](https://martinfowler.com/bliki/DDD_Aggregate.html) – это кластер объектов домена, который можно рассматривать как единое целое. Он инкапсулирует сущности и объекты-значения, которые концептуально связаны друг с другом. Он также содержит набор операций, с помощью которых можно оперировать этими доменными объектами.
 
-- Aggregates help to simplify the domain model by gathering multiple domain objects under a single abstraction.
-- Aggregates should not be influenced by data model. Associations between domain objects are not the same as database relationships.
-- Aggregate root is an entity that contains other entities/value objects and all logic to operate them.
-- Aggregate root has global identity. Entities inside the boundary have local identity, unique only within the Aggregate.
-- Aggregate root is a gateway to entire aggregate. Any references from outside the aggregate should **only** go to the aggregate root.
-- Any operations on an aggregate must be [transactional operations](https://en.wikipedia.org/wiki/Database_transaction). Either everything gets saved/updated/deleted or nothing.
-- Only Aggregate Roots can be obtained directly with database queries. Everything else must be done through traversal.
-- Similar to `Entities`, aggregates must protect their invariants through entire lifecycle. When a change to any object within the Aggregate boundary is committed, all invariants of the whole Aggregate must be satisfied. Simply said, all objects in an aggregate must be consistent, meaning that if one object inside an aggregate changes state, this shouldn't conflict with other domain objects inside this aggregate (this is called _Consistency Boundary_).
-- Objects within the Aggregate can hold references to other Aggregate roots. Prefer references to external aggregates only by their globally unique identity, not by holding a direct object reference.
-- Try to avoid aggregates that are too big, this can lead to performance and maintaining problems.
-- Aggregates can publish `Domain Events` (more on that below).
+- Агрегаты помогают упростить доменную модель, собирая несколько доменных объектов в рамках единой абстракции.
+- На агрегаты не должна влиять модель данных. Связи между доменными объектами – это не то же самое, что отношения в базе данных.
+– Корневой агрегат – это объект, который содержит другие объекты / объекты-значения и всю логику для работы с ними.
+- Корневой агрегат имеет глобальную идентичность. Ограниченные сущности имеют локальную идентичность, уникальную только в пределах агрегата.
+- Корневой агрегат – это шлюз ко всему агрегату. Любые ссылки извне агрегата должны относиться **только** к корневому агрегату.
+- Любые операции с агрегатом должны быть [транзакционными операциями](https://en.wikipedia.org/wiki/Database_transaction). Либо все будет сохранено / обновлено / удалено, либо ничего.
+- Только корневые агрегаты могут быть получены непосредственно с помощью запросов к базе данных. Все остальное должно быть сделано путем обхода.
+- Подобно сущностям, агрегаты должны защищать свои инварианты на протяжении всего жизненного цикла. Когда фиксируется изменение любого объекта в пределах границы агрегата, должны быть удовлетворены все инварианты всего агрегата. Проще говоря, все объекты в агрегате должны быть консистентными, что означает, что если один объект внутри агрегата изменяет состояние, это не должно конфликтовать с другими объектами домена внутри этого агрегата (это называется _Граница консистентности_).
+- Объекты внутри агрегата могут содержать ссылки на другие корневые агрегаты. Предпочитайте ссылки на внешние агрегаты только по их глобально уникальной идентичности, а не по прямой ссылке на объект.
+- Старайтесь избегать слишком больших агрегатов, это может привести к проблемам с производительностью и поддержкой.
+- Агрегаты могут публиковать «доменные события» (подробнее об этом ниже).
 
-All of this rules just come from the idea of creating a boundary around Aggregates. The boundary simplifies business model, as it forces us to consider each relationship very carefully, and within a well-defined set of rules.
+Все эти правила исходят только из идеи создания границы вокруг агрегатов. Граница упрощает бизнес-модель, поскольку заставляет нас очень внимательно рассматривать каждую взаимосвязь в рамках четко определенного набора правил.
 
-In summary, if you combine multiple related entities and value objects inside one root `Entity`, this root `Entity` becomes an `Aggregate Root`, and this cluster of related entities and value objects becomes an `Aggregate`.
+Таким образом, если вы объединяете несколько связанных сущностей и объектов-значений внутри одной корневой сущности, эта корневая сущность становится корневым агрегатом, и этот кластер связанных сущностей и объектов-значений становится агрегатом.
 
-Example files:
+**Примеры**:
 
-- [aggregate-root.base.ts](src/core/base-classes/aggregate-root.base.ts) - abstract base class.
-- [user.entity.ts](src/modules/user/domain/entities/user.entity.ts) - aggregates are just entities that have to follow a set of specific rules described above.
+- [aggregate-root.base.ts](src/libs/ddd/domain/base-classes/aggregate-root.base.ts) – абстрактный базовый класс.
+- [user.entity.ts](src/modules/user/domain/entities/user.entity.ts) – агрегаты – это просто объекты, которые должны следовать набору определенных правил, описанных выше.
 
-Read more:
+**Подробнее об этом**:
 
 - [Understanding Aggregates in Domain-Driven Design](https://dzone.com/articles/domain-driven-design-aggregate)
-- [What Are Aggregates In Domain-Driven Design?](https://www.jamesmichaelhickey.com/domain-driven-design-aggregates/) <- this is a series of multiple articles, don't forget to click "Next article" at the end.
+- [What Are Aggregates In Domain-Driven Design?](https://www.jamesmichaelhickey.com/domain-driven-design-aggregates/) <- это серия из нескольких статей, не забудьте нажать «Next article» в конце.
 - [Effective Aggregate Design Part I: Modeling a Single Aggregate](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_1.pdf)
 - [Effective Aggregate Design Part II: Making Aggregates Work Together](https://www.dddcommunity.org/wp-content/uploads/files/pdf_articles/Vernon_2011_2.pdf)
 
 ---
 
-## Domain Events
+## Доменные события
 
-Domain event indicates that something happened in a domain that you want other parts of the same domain (in-process) to be aware of. Domain events are just messages pushed to an in-memory domain event dispatcher.
+Доменное событие указывает, что что-то произошло в домене, о чем вы хотите, чтобы другие части того же домена (находящиеся в процессе) знали. Доменные события – это просто сообщения, отправленные в стек диспетчера доменных событий.
 
-For example, if a user buys something, you may want to:
+Например, если пользователь что-то покупает, вы можете:
 
-- Update his shopping cart;
-- Withdraw money from his wallet;
-- Create a new shipping order;
-- Perform other domain operations that are not a concern of an aggregate that executes a "buy" command.
+- Обновить его корзину покупок;
+- Снять деньги с его кошелька;
+- Создать новый заказ на доставку;
+- Выполнить другие доменные операции, которые не относятся к агрегату, выполняющему команду «купить».
 
-Typical approach that is usually used involves executing all this logic in a service that performs a buy operation. But this creates coupling between different subdomains.
+Типичный подход, который обычно используется, включает выполнение всей этой логики в службе, выполняющей операцию покупки. Но это создает связанность между разными субдоменами.
 
-An alternative approach would be publishing a `Domain Event`. If executing a command related to one aggregate instance requires additional domain rules to be run on one or more additional aggregates, you can design and implement those side effects to be triggered by Domain Events. Propagation of state changes across multiple aggregates within the same domain model can be performed by subscribing to a concrete `Domain Event` and creating as many event handlers as needed. This prevents coupling between aggregates.
+Альтернативный подход – публикация доменного события. Если выполнение команды, относящейся к одному экземпляру агрегата, требует, чтобы дополнительные правила домена выполнялись на одном или нескольких дополнительных агрегатах, то вы можете спроектировать и реализовать эти побочные эффекты, которые будут запускаться событиями домена. Распространение изменений состояния по нескольким агрегатам в рамках одной доменной модели может быть выполнено путем подписки на конкретное доменное событие и создания необходимого количества обработчиков событий. Это предотвращает связанность между агрегатами.
 
-Domain Events may be useful for creating an [audit log](https://en.wikipedia.org/wiki/Audit_trail) to track all changes to important entities by saving each event to the database. Read more on why audit logs may be useful: [Why soft deletes are evil and what to do instead](https://jameshalsall.co.uk/posts/why-soft-deletes-are-evil-and-what-to-do-instead).
+Доменные события могут быть полезны при создании [журнала аудита](https://en.wikipedia.org/wiki/Audit_trail) для отслеживания всех изменений важных сущностей путем сохранения каждого события в базе данных. Узнайте больше о том, почему журналы аудита могут быть полезны: [Why soft deletes are evil and what to do instead](https://jameshalsall.co.uk/posts/why-soft-deletes-are-evil-and-what-to-do-instead).
 
-All changes done by Domain Events (or by anything else) across multiple aggregates in a single process should be saved in a single database transaction to maintain consistency. Patterns like [Unit of Work](https://www.c-sharpcorner.com/UploadFile/b1df45/unit-of-work-in-repository-pattern/) or similar can help with that.
+Все изменения, сделанные событиями домена (или чем-либо еще) в нескольких агрегатах в одном процессе, должны быть сохранены в одной транзакции базы данных для обеспечения консистентности. В этом могут помочь такие шаблоны, как [Unit of Work](https://www.c-sharpcorner.com/UploadFile/b1df45/unit-of-work-in-repository-pattern/) или аналогичные.
 
-**Note**: this project uses custom implementation for publishing Domain Events. Reason for not using [Node Event Emitter](https://nodejs.org/api/events.html) or packages that offer an event bus (like [NestJS CQRS](https://docs.nestjs.com/recipes/cqrs)) is that they don't offer an option to `await` for all events to finish, which is useful when making all events a part of a transaction. Inside a single process either all changes done by events should be saved, or none of them in case if one of the events fails.
+**Примечание**: в этом проекте используется пользовательская реализация для публикации доменных событий. Причина отказа от использования [Node Event Emitter](https://nodejs.org/api/events.html) или пакетов, которые предлагают шину событий (например, [NestJS CQRS](https://docs.nestjs.com/recipes/cqrs)) заключается в том, что они не предлагают возможности ожидания для завершения всех событий, что полезно, когда все события становятся частью транзакции. Внутри одного процесса должны быть сохранены либо все изменения, внесенные событиями, либо ни одно из них в случае сбоя одного из событий.
 
-There are multiple ways on implementing an event bus for Domain Events, for example by using ideas from patterns like [Mediator](https://refactoring.guru/design-patterns/mediator) or [Observer](https://refactoring.guru/design-patterns/observer).
+Существует несколько способов реализации шины событий для доменных событий, например, используя идеи из таких шаблонов, как [Посредник](https://refactoring.guru/design-patterns/mediator) или [Наблюдатель](https://refactoring.guru/design-patterns/observer).
 
-Examples:
+**Примеры**:
 
-- [domain-events.ts](src/libs/ddd/domain/domain-events/domain-events.ts) - this class is responsible for providing publish/subscribe functionality for anyone who needs to emit or listen to events. Keep in mind that this is just a proof of concept example and may not be a best solution for a production application.
-- [user-created.domain-event.ts](src/modules/user/domain/events/user-created.domain-event.ts) - simple object that holds data related to published event.
-- [create-wallet-when-user-is-created.domain-event-handler.ts](src/modules/wallet/application/event-handlers/create-wallet-when-user-is-created.domain-event-handler.ts) - this is an example of Domain Event Handler that executes some actions when a domain event is raised (in this case, when user is created it also creates a wallet for that user).
-- [typeorm.repository.base.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm.repository.base.ts) - repository publishes all domain events for execution when it persists changes to an aggregate.
-- [typeorm-unit-of-work.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm-unit-of-work.ts) - this ensures that everything is saved in a single transaction.
-- [unit-of-work.ts](src/infrastructure/database/unit-of-work/unit-of-work.ts) - here you create factories for specific Domain Repositories that are used in a transaction.
-- [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) - here we get a user repository from a `UnitOfWork` and execute a transaction.
+- [domain-events.ts](src/libs/ddd/domain/domain-events/domain-events.ts) – этот класс отвечает за предоставление функционала публикации / подписки для всех, кому необходимо генерировать или прослушивать события. Имейте в виду, что это всего лишь демонстрационный пример концепции и может быть не лучшим решением для приложения в эксплуатационном окружении.
+- [user-created.domain-event.ts](src/modules/user/domain/events/user-created.domain-event.ts) – простой объект, содержащий данные, относящиеся к опубликованному событию.
+- [create-wallet-when-user-is-created.domain-event-handler.ts](src/modules/wallet/application/event-handlers/create-wallet-when-user-is-created.domain-event-handler.ts) – это пример обработчика доменного события, который выполняет некоторые действия при возникновении доменного события (в этом случае при создании пользователя он также создает кошелек для этого пользователя).
+- [typeorm.repository.base.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm.repository.base.ts) – репозиторий публикует все доменные события для выполнения при сохранении изменений в агрегате.
+- [typeorm-unit-of-work.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm-unit-of-work.ts) – гарантирует, что все будет сохранено в одной транзакции.
+- [unit-of-work.ts](src/infrastructure/database/unit-of-work/unit-of-work.ts) – здесь вы создаете фабрики для определенных репозиториев домена, которые используются в транзакции.
+- [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – здесь мы получаем пользовательский репозиторий из `UnitOfWork` и выполняем транзакцию.
 
-**Note**: Unit of work is not required for some operations (for example queries or operations that don't cause any side-effects in other aggregates) so you may skip using a unit of work in this cases and just use a regular repository injected through a constructor instead of a repository from a unit of work.
+**Примечание**: Единица работы (*Unit of work*) не требуется для некоторых операций (например, запросов или операций, которые не вызывают побочных эффектов в других агрегатах), поэтому вы можете пропустить использование единицы работы в таких случаях и просто использовать обычный репозиторий, внедренный через конструктор, а не репозиторий из единицы работы.
 
-To have a better understanding on domain events and implementation read this:
+Чтобы лучше понять доменные события и их реализацию, прочтите это:
 
 - [Domain Event pattern](https://badia-kharroubi.gitbooks.io/microservices-architecture/content/patterns/tactical-patterns/domain-event-pattern.html)
 - [Domain events: design and implementation](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation)
 
-**Note**: keep in mind that while using only events for complex workflows with a lot of steps it will be hard to track everything that is happening across the application. One event may trigger another one, then another one, and so on. To track the entire workflow you'll have to go multiple places and search for an event handler for each step which is hard to maintain. In this cases using a service/orchestrator/mediator might be a preferred approach than only using events since you will have an entire workflow in one place. This might create some coupling, but is easier to maintain. Don't rely on events only, pick the right tool for the job.
+**Примечание**: имейте в виду, что при использовании только событий для сложных рабочих процессов с большим количеством шагов будет сложно отслеживать все, что происходит в приложении. Одно событие может вызвать другое, затем другое и так далее. Чтобы отслеживать весь рабочий процесс, вам придется пройти по разным местам в коде и найти обработчик событий для каждого шага, что является сложным в поддержке. В этих случаях использование службы / оркестратора / посредника может быть более предпочтительным подходом, чем использование только событий, поскольку у вас будет весь рабочий процесс в одном месте. Это может создать некоторую связанность, но является более легким в поддержке. Не полагайтесь только на события, выберите подходящий инструмент для работы.
 
-**Note**: keep in mind that if you are using [Event Sourcing pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing) with a single stream per aggregate you most likely will not be able to save all events across multiple aggregates in a single transaction. In this case saving events across multiple aggregates should be treated differently (for example by using [Sagas](https://microservices.io/patterns/data/saga.html) with compensating events or a [Process Manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) or something similar).
+**Примечание**: имейте в виду, что если вы используете [шаблон Хронология Событий](https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing) с одним потоком для каждого агрегата, то вы, скорее всего, не сможете сохранить все события в нескольких агрегатах в одной транзакции. В этом случае сохранение событий в нескольких агрегатах должно обрабатываться по-разному (например, с помощью [шаблона Сага](https://microservices.io/patterns/data/saga.html) с компенсирующими событиями или [Process Manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) или что-то подобное).
 
-## Integration Events
+## Интеграционные события
 
-Out-of-process communications (calling microservices, external apis) are called `Integration Events`. If sending a Domain Event to external process is needed then domain event handler should send an `Integration Event`.
+Внепроцессные коммуникации (вызов микросервисов, внешние API-интерфейсы) называются «интеграционными событиями». Если требуется отправка доменного события внешнему процессу, то обработчик событий домена должен отправить интеграционное событие.
 
-Integration Events should be published only **after** all Domain Events finished executing and saving all changes to the database.
+Интеграционные события должны публиковаться только **после** завершения выполнения всех доменных событий и сохранения всех изменений в базе данных.
 
-To handle integration events in microservices you may need an external message broker / event bus like [RabbitMQ](https://www.rabbitmq.com/) or [Kafka](https://kafka.apache.org/) together with patterns like [Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html), [Change Data Capture](https://en.wikipedia.org/wiki/Change_data_capture), [Sagas](https://microservices.io/patterns/data/saga.html) or a [Process Manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) to maintain [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency).
+Для обработки интеграционных событий в микросервисах вам может потребоваться внешний брокер сообщений или шина событий, например [RabbitMQ](https://www.rabbitmq.com/) или [Kafka](https://kafka.apache.org/) вместе с шаблонами, такими как [Transactional outbox](https://microservices.io/patterns/data/transactional-outbox.html), [Change Data Capture](https://en.wikipedia.org/wiki/Change_data_capture), [Sagas](https://microservices.io/patterns/data/saga.html) or a [Process Manager](https://www.enterpriseintegrationpatterns.com/patterns/messaging/ProcessManager.html) для поддержания [конечной консистентности](https://en.wikipedia.org/wiki/Eventual_consistency).
 
-Read more:
+**Подробнее об этом**:
 
 - [Domain Events vs. Integration Events in Domain-Driven Design and microservices architectures](https://devblogs.microsoft.com/cesardelatorre/domain-events-vs-integration-events-in-domain-driven-design-and-microservices-architectures/)
 
-For integration events in distributed systems here are some patterns that may be useful:
+Вот несколько шаблонов, которые могут быть полезны для интеграционных событий в распределенных системах:
 
 - [Saga distributed transactions](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/saga/saga)
 - [Saga vs. Process Manager](https://blog.devarchive.net/2015/11/saga-vs-process-manager.html)
@@ -484,108 +484,108 @@ For integration events in distributed systems here are some patterns that may be
 
 ---
 
-## Domain Services
+## Доменные службы
 
-Eric Evans, Domain-Driven Design:
+*Eric Evans*, Domain-Driven Design:
 
-> Domain services are used for "a significant process or transformation in the domain that is not a natural responsibility of an ENTITY or VALUE OBJECT"
+> Доменные службы используются для «значительного процесса или преобразования в домене, которые не является обязанностью сущности или объекта-значения».
 
-- Domain Service is a specific type of domain layer class that is used to execute domain logic that relies on two or more `Entities`.
-- Domain Services are used when putting the logic on a particular `Entity` would break encapsulation and require the `Entity` to know about things it really shouldn't be concerned with.
-- Domain services are very granular where as application services are a facade purposed with providing an API.
-- Domain services operate only on types belonging to the Domain. They contain meaningful concepts that can be found within the Ubiquitous Language. They hold operations that don't fit well into Value Objects or Entities.
+- Доменная служба – это особый тип класса доменного уровня, который используется для выполнения доменной логики с задействованием двух или более сущностей.
+- Доменные службы используются, когда помещение логики в конкретную сущность нарушит инкапсуляцию и потребует от сущности хранения информации о вещах, о которых она не должна беспокоиться.
+- Доменные службы очень детализированы, тогда как прикладные службы являются фасадом, предназначенным для предоставления API.
+- Доменные службы работают только с типами, принадлежащими домену. Они содержат значимые концепции, которые можно найти в Едином языке. Они содержат операции, которые не подходят для объектов-значений или сущностей.
 
 ---
 
-## Value objects
+## Объекты-значения
 
-Some Attributes and behaviors can be moved out of the entity itself and put into `Value Objects`.
+Некоторые атрибуты и поведения могут быть перемещены из самой сущности и помещены в объекты-значения.
 
-Value Objects:
+Объекты-значения:
 
-- Have no identity. Equality is determined through structural property.
-- Are immutable.
-- Can be used as an attribute of `entities` and other `value objects`.
-- Explicitly defines and enforces important constraints (invariants).
+- Не имеют идентичности. Равенство определяется структурным свойством.
+- Неизменяемы (иммутабельны).
+- Могут использоваться как атрибут «сущностей» и других «объектов-значений».
+- Явно определяют и жестко применяют важные ограничения (инварианты).
 
-Value object shouldn’t be just a convenient grouping of attributes but should form a well-defined concept in the domain model. This is true even if it contains only one attribute. When modeled as a conceptual whole, it carries meaning when passed around, and it can uphold its constraints.
+Объект-значение не должен быть просто удобной группой атрибутов, он должен формировать четко определенную концепцию в доменной модели. Это верно, даже если он содержит только один атрибут. Будучи смоделированным как концептуальное целое, он несет в себе смысл при распространении (жизненном цикле), и может поддерживать свои ограничения.
 
-Imagine you have a `User` entity which needs to have an `address` of a user. Usually an address is simply a complex value that has no identity in the domain and is composed of multiple other values, like `country`, `street`, `postalCode` etc; so it can be modeled and treated as a `Value Object` with it's own business logic.
+Представьте, что у вас есть сущность `User`, которая должна иметь адрес пользователя. Обычно адрес – это просто сложное значение, не имеющее идентичности в домене и состоящее из множества других значений, таких как `country`, `street`, `postalCode` и  др.; поэтому его можно смоделировать и рассматривать как «объект-значение» со своей собственной бизнес-логикой.
 
-`Value object` isn’t just a data structure that holds values. It can also encapsulate logic associated with the concept it represents.
+Объект-значение – это не просто структура данных, содержащая значения. Он также может инкапсулировать логику, связанную с представляемой им концепцией.
 
-Example files:
+**Примеры**:
 
 - [address.value-object.ts](src/modules/user/domain/value-objects/address.value-object.ts)
 
-Read more about Value Objects:
+**Подробнее об этом**:
 
 - [Martin Fowler blog](https://martinfowler.com/bliki/ValueObject.html)
 - [Value Objects to the rescue](https://medium.com/swlh/value-objects-to-the-rescue-28c563ad97c6).
 - [Value Object pattern](https://badia-kharroubi.gitbooks.io/microservices-architecture/content/patterns/tactical-patterns/value-object-pattern.html)
 
-## Enforcing invariants of Domain Objects
+## Обеспечение инвариантов доменных объектов
 
-### Replacing primitives with Value Objects
+### Замена примитивов на объекты-значения
 
-Most of the code bases operate on primitive types – `strings`, `numbers` etc. In the Domain Model, this level of abstraction may be too low.
+Большинство кодовых баз работают с примитивными типами – «строки», «числа» и т. д. В доменной модели этот уровень абстракции может быть слишком низким.
 
-Significant business concepts can be expressed using specific types and classes. `Value Objects` can be used instead primitives to avoid [primitives obsession](https://refactoring.guru/smells/primitive-obsession).
-So, for example, `email` of type `string`:
+Важные бизнес-концепции можно выразить с помощью определенных типов и классов. Вместо примитивов можно использовать объекты-значения, чтобы избежать [одержимости элементарными типами](https://refactoring.guru/smells/primitive-obsession).
+Для примера `email` с типом `string`:
 
 ```typescript
 email: string;
 ```
 
-could be represented as a `Value Object` instead:
+... вместо этого может быть представлен как объект-значение:
 
 ```typescript
 email: Email;
 ```
 
-Now the only way to make an `email` is to create a new instance of `Email` class first, this ensures it will be validated on creation and a wrong value won't get into `Entities`.
+Теперь единственный способ создать `email` – сначала создать новый экземпляр класса `Email`, что гарантирует валидацию при его создании, и неверное значение не попадет в сущности, используемые его.
 
-Also an important behavior of the domain primitive is encapsulated in one place. By having the domain primitive own and control domain operations, you reduce the risk of bugs caused by lack of detailed domain knowledge of the concepts involved in the operation.
+Также важное поведение доменного примитива инкапсулировано в одном месте. Имея собственный доменный примитив и управляя операциями с доменом, вы снижаете риск ошибок, вызванных отсутствием подробных знаний предметной области о концепциях, задействованных в операции.
 
-Creating an object for primitive values may be cumbersome, but it somewhat forces a developer to study domain more in details instead of just throwing a primitive type without even thinking what that value represents in domain.
+Создание объекта для примитивных значений может быть обременительным, но это несколько заставляет разработчика изучать предметную область более подробно, вместо того, чтобы просто бросать примитивный тип, даже не задумываясь о том, что это значение представляет в предметной области.
 
-Using `Value Objects` for primitive types is also called a `domain primitive`. The concept and naming are proposed in the book ["Secure by Design"](https://www.manning.com/books/secure-by-design).
+Используемые вместо примитивных типов «объекты-значения» также называются «доменными примитивами». Концепция и название предложены в книге [Secure by Design](https://www.manning.com/books/secure-by-design).
 
-Using `Value Objects` instead of primitives:
+Использование объектов-значений вместо примитивов:
 
-- Makes code easier to understand by using [ubiquitous language](https://martinfowler.com/bliki/UbiquitousLanguage.html) instead of just `string`.
-- Improves security by ensuring invariants of every property.
-- Encapsulates specific business rules associated with a value.
+- Делает код более понятным за счет использования [Единого языка](https://martinfowler.com/bliki/UbiquitousLanguage.html) вместо простой строки.
+- Повышает безопасность, обеспечивая инварианты каждого свойства.
+- Инкапсулирует определенные бизнес-правила, связанные со значением.
 
-Also an alternative for creating an object may be a [type alias](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases) just to give this primitive a semantic meaning.
+Также альтернативой для создания объекта может быть [псевдоним типа](https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-aliases), просто чтобы придать этому примитиву семантическое значение.
 
-Example files:
+**Примеры**:
 
 - [email.value-object.ts](src/modules/user/domain/value-objects/email.value-object.ts)
 
-Recommended to read:
+**Рекомендуем прочитать**:
 
 - [Primitive Obsession — A Code Smell that Hurts People the Most](https://medium.com/the-sixt-india-blog/primitive-obsession-code-smell-that-hurt-people-the-most-5cbdd70496e9)
 - [Value Objects Like a Pro](https://medium.com/@nicolopigna/value-objects-like-a-pro-f1bfc1548c72)
 - [Developing the ubiquitous language](https://medium.com/@felipefreitasbatista/developing-the-ubiquitous-language-1382b720bb8c)
 
-**Use Value Objects/Domain Primitives and Types system to make illegal states unrepresentable in your program.**
+**Используйте систему объектов-значений, доменных примитивов и типов, чтобы сделать недопустимые состояния непредставимыми в вашем приложении**.
 
-Some people recommend using objects for **every** value:
+Некоторые люди рекомендуют использовать объекты для **каждого** значения:
 
-Quote from [John A De Goes](https://twitter.com/jdegoes):
+Цитата из [John A De Goes](https://twitter.com/jdegoes):
 
-> Making illegal states unrepresentable is all about statically proving that all runtime values (without exception) correspond to valid objects in the business domain. The effect of this technique on eliminating meaningless runtime states is astounding and cannot be overstated.
+> Чтобы сделать недопустимые состояния непредставимыми, нужно статически доказать, что все значения (без исключения) во время выполнения соответствуют валидным объектам в бизнес-области. Эффект этой техники по устранению бессмысленных состояний во время выполнения поразителен, и его невозможно переоценить.
 
-Lets distinguish two types of protection from illegal states: at **compile time** and at **runtime**.
+Давайте различим два типа защиты от недопустимых состояний: **во время компиляции** и **во время выполнения**.
 
-### At compile time
+### Во время компиляции
 
-Types give useful semantic information to a developer. Good code should be easy to use correctly, and hard to use incorrectly. Types system can be a good help for that. It can prevent some nasty errors at a compile time, so IDE will show type errors right away.
+Типы предоставляют разработчику полезную семантическую информацию. Хороший код должен быть простым для корректного использования и трудным для некорректного использования. Система типов может в этом помочь. Это может предотвратить некоторые неприятные ошибки во время компиляции, поэтому IDE сразу покажет ошибки типа.
 
-The simplest example may be using enums instead of constants, and use those enums as input type for something. When passing anything that is not intended IDE will show a type error.
+В качестве простейшего примера: использование перечисления вместо констант и использование этих перечислений как тип входных данных для чего-то. При передаче чего-либо, что не предназначено, IDE покажет ошибку типа.
 
-Or, for example, imagine that business logic requires to have contact info of a person by either having `email`, or `phone`, or both. Both `email` and `phone` could be represented as optional, for example:
+Или, например, представьте, что бизнес-логика требует наличия контактной информации человека по электронной почте, телефону. И `email`, и `phone` могут быть представлены как необязательные, например:
 
 ```typescript
 interface ContactInfo {
@@ -594,30 +594,30 @@ interface ContactInfo {
 }
 ```
 
-But what happens if both are not provided by a programmer? Business rule violated. Illegal state allowed.
+Но что произойдет, если и то, и другое не было передано программистом? Нарушено бизнес-правило. Это недопустимое состояние.
 
-Solution: this could be presented as a [union type](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types)
+Решение: это можно представить как [объединение типов](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#union-types):
 
 ```typescript
 type ContactInfo = Email | Phone | [Email, Phone];
 ```
 
-Now only either `Email`, or `Phone`, or both must be provided. If nothing is provided IDE will show a type error right away. Now business rule validation is moved from runtime to a **compile time** which makes application more secure and gives a faster feedback when something is not used as intended.
+Теперь необходимо указать либо `Email`, либо `Phone`, либо и то, и другое. Если ничего не указано, то IDE сразу же покажет ошибку типа. Теперь валидация бизнес-правил перенесена из времени выполнения на **время компиляции**, что делает приложение более безопасным и дает более быструю обратную связь, когда что-то используется не по назначению.
 
-This is called a _typestate pattern_.
+Это называется _шаблоном Тип-Состояние_.
 
-> The typestate pattern is an API design pattern that encodes information about an object’s run-time state in its compile-time type.
+> Шаблон Тип-Состояние – это шаблон проектирования API, который кодирует информацию о *состоянии* объекта во время выполнения в его *тип* во время компиляции.
 
-Read more about typestates:
+**Подробнее об этом**:
 
 - [Typestates Would Have Saved the Roman Republic](https://blog.yoavlavi.com/state-machines-would-have-saved-the-roman-republic/)
 - [The Typestate Pattern](https://cliffle.com/blog/rust-typestate/)
 
-### At runtime
+### Во время выполнения
 
-Things that can't be validated at compile time (like user input) are validated at runtime.
+То, что не может быть проверено во время компиляции (например, пользовательский ввод), проверяется во время выполнения.
 
-Domain objects have to protect their invariants. Having some validation rules here will protect their state from corruption.
+Доменные объекты должны защищать свои инварианты. Наличие здесь некоторых правил валидации защитит их состояние от повреждения.
 
 `Value Object` can represent a typed value in domain (a _domain primitive_). The goal here is to encapsulate validations and business logic related only to the represented fields and make it impossible to pass around raw values by forcing a creation of valid `Value Objects` first. This object only accepts values which make sense in its context.
 
@@ -627,15 +627,15 @@ Data should not be trusted. There are a lot of cases when invalid data may end u
 
 Enforcing self-validation will inform immediately when data is corrupted. Not validating domain objects allows them to be in an incorrect state, this leads to problems.
 
-> Without domain primitives, the remaining code needs to take care of validation, formatting, comparing, and lots of other details. Entities represent long-lived objects with a distinguished identity, such as articles in a news feed, rooms in a hotel, and shopping carts in online sales. The functionality in a system often centers around changing the state of these objects: hotel rooms are booked, shopping cart contents are
-> paid for, and so on. Sooner or later the flow of control will be guided to some code representing these entities. And if all the data is transmitted as generic types such as int or String , responsibilities fall on the entity code to validate, compare, and format the data, among other tasks. The entity code will be burdened with a lot of
-> tasks, rather than focusing on the central business flow-of-state changes that it models. Using domain primitives can counteract the tendency for entities to grow overly complex.
+> Without domain primitives, the remaining code needs to take care of validation, formatting, comparing, and lots of other details. Entities represent long-lived objects with a distinguished identity, such as articles in a news feed, rooms in a hotel, and shopping carts in online sales. The functionality in a system often centers around changing the state of these objects: hotel rooms are booked, shopping cart contents are paid for, and so on.
+> Sooner or later the flow of control will be guided to some code representing these entities. And if all the data is transmitted as generic types such as int or String , responsibilities fall on the entity code to validate, compare, and format the data, among other tasks.
+> The entity code will be burdened with a lot of tasks, rather than focusing on the central business flow-of-state changes that it models. Using domain primitives can counteract the tendency for entities to grow overly complex.
 
 Quote from: [Secure by design: Chapter 5.3 Standing on the shoulders of domain primitives](https://livebook.manning.com/book/secure-by-design/chapter-5/96)
 
-**Note**: Though _primitive obsession_ is a code smell, some people consider making a class/object for every primitive may be an overengineering. For less complex and smaller projects it definitely may be. For bigger projects, there are people who advocate for and against this approach. If creating a class for every primitive is not preferred, create classes just for those primitives that have specific rules or behavior, or just validate only outside of domain using some validation framework. Here are some thoughts on this topic: [From Primitive Obsession to Domain Modelling - Over-engineering?](https://blog.ploeh.dk/2015/01/19/from-primitive-obsession-to-domain-modelling/#7172fd9ca69c467e8123a20f43ea76c2).
+**Примечание**: Though _primitive obsession_ is a code smell, some people consider making a class/object for every primitive may be an overengineering. For less complex and smaller projects it definitely may be. For bigger projects, there are people who advocate for and against this approach. If creating a class for every primitive is not preferred, create classes just for those primitives that have specific rules or behavior, or just validate only outside of domain using some validation framework. Here are some thoughts on this topic: [From Primitive Obsession to Domain Modelling - Over-engineering?](https://blog.ploeh.dk/2015/01/19/from-primitive-obsession-to-domain-modelling/#7172fd9ca69c467e8123a20f43ea76c2).
 
-**Recommended to read**:
+**Рекомендуем прочитать**:
 
 - [Making illegal states unrepresentable](https://v5.chriskrycho.com/journal/making-illegal-states-unrepresentable-in-ts/)
 - [Domain Primitives: what they are and how you can use them to make more secure software](https://freecontent.manning.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software/)
@@ -645,9 +645,9 @@ Quote from: [Secure by design: Chapter 5.3 Standing on the shoulders of domain p
 
 For simple validation like checking for nulls, empty arrays, input length etc. a library of [guards](<https://en.wikipedia.org/wiki/Guard_(computer_science)>) can be created.
 
-Example file: [guard.ts](src/libs/ddd/domain/guard.ts)
+**Примеры**: [guard.ts](src/libs/ddd/domain/guard.ts)
 
-Read more: [Refactoring: Guard Clauses](https://medium.com/better-programming/refactoring-guard-clauses-2ceeaa1a9da)
+**Подробнее об этом**: [Refactoring: Guard Clauses](https://medium.com/better-programming/refactoring-guard-clauses-2ceeaa1a9da)
 
 Another solution would be using an external validation library, but it is not a good practice to tie domain to external libraries and is not usually recommended.
 
@@ -689,7 +689,7 @@ Preferably in this order:
 - _Syntax - Is the format right?_ Check if data format is right. Sometimes checking syntax is as simple as using a regexp, or it may be more complex like parsing a XML or JSON.
 - _Semantics - Does the data make sense?_ Check data in connection with the rest of the system (like database, other processes etc). For example, checking in a database if ID of item exists.
 
-Read more about validation types described above:
+**Подробнее об этом**:
 
 - ["Secure by Design" Chapter 4.3: Validation](https://livebook.manning.com/book/secure-by-design/chapter-4/109).
 
@@ -714,16 +714,16 @@ return Result.ok(user);
 
 Returning errors instead of throwing them adds a bit of extra boilerplate code, but makes your application more robust and secure.
 
-**Note**: Distinguish between Domain Errors and Exceptions. Exceptions are usually thrown and not returned. If you return technical Exceptions (like connection failed, process out of memory etc), It may cause some security issues and goes against [Fail-fast](https://en.wikipedia.org/wiki/Fail-fast) principle. Instead of terminating a program flow, returning an exception continues program execution and allows it to run in an incorrect state, which may lead to more unexpected errors, so it's generally better to throw an Exception in those cases rather then returning it.
+**Примечание**: Distinguish between Domain Errors and Exceptions. Exceptions are usually thrown and not returned. If you return technical Exceptions (like connection failed, process out of memory etc), It may cause some security issues and goes against [Fail-fast](https://en.wikipedia.org/wiki/Fail-fast) principle. Instead of terminating a program flow, returning an exception continues program execution and allows it to run in an incorrect state, which may lead to more unexpected errors, so it's generally better to throw an Exception in those cases rather then returning it.
 
-Example files:
+**Примеры**:
 
 - [user.errors.ts](src/modules/user/errors/user.errors.ts) - user errors
 - [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) - notice how `Result.err(new UserAlreadyExistsError())` is returned instead of throwing it.
 - [create-user.http.controller.ts](src/modules/user/commands/create-user/create-user.http.controller.ts) - in a user http controller we unwrap an error and decide what to do with it. If an error is `UserAlreadyExistsError` we throw a `Conflict Exception` which a user will receive as `409 - Conflict`. If an error is unknown we just throw it and NestJS will return it to the user as `500 - Internal Server Error`.
 - [create-user.cli.controller.ts](src/modules/user/commands/create-user/create-user.cli.controller.ts) - in a CLI controller we do not care about returning a correct status code so we just `.unwrap()` a result, which will just throw in case of an error.
 
-Read more:
+**Подробнее об этом**:
 
 - ["Secure by Design" Chapter 9.2: Handling failures without exceptions](https://livebook.manning.com/book/secure-by-design/chapter-9/51)
 - [Flexible Error Handling w/ the Result Class](https://khalilstemmler.com/articles/enterprise-typescript-nodejs/handling-errors-result-class/)
@@ -749,7 +749,7 @@ NestJS makes a good job as it uses decorators which are not very intrusive, so y
 
 Offload as much of irrelevant responsibilities as possible from the core, especially from domain layer. In addition, try to minimize usage of dependencies in general. More dependencies your software has means more potential errors and security holes. One technique for making software more robust is to minimize what your software depends on - the less that can go wrong, the less will go wrong. On the other hand, removing all dependencies would be counterproductive as replicating that functionality would have been a huge amount of work and less reliable than just using a widely-used dependency. Finding a good balance is important, this skill requires experience.
 
-Read more:
+**Подробнее об этом**:
 
 - [Referencing external libs](https://khorikov.org/posts/2019-08-07-referencing-external-libs/).
 - [Anti-corruption Layer — An effective Shield](https://medium.com/@malotor/anticorruption-layer-a-effective-shield-caa4d5ba548c)
@@ -781,7 +781,7 @@ If you are using [GraphQL](https://graphql.org/) instead of controllers you will
 
 One of the main benefits of a layered architecture is separation of concerns. As you can see it doesn't matter if you use [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) or GraphQL, the only thing that changes is user-facing API layer (interface-adapters). All the application Core stays the same since it doesn't depend on technology you are using.
 
-Example files:
+**Примеры**:
 
 - [create-user.graphql-resolver.ts](src/modules/user/commands/create-user/create-user.graphql-resolver.ts)
 
@@ -798,7 +798,7 @@ Input data sent by a user.
 
 - Using Request DTOs gives a contract that a client of your API has to follow to make a correct request.
 
-Examples:
+**Примеры**:
 
 - [create-user.request.dto.ts](src/modules/user/commands/create-user/create-user.request.dto.ts)
 - [create.user.interface.ts](src/interface-adapters/interfaces/user/create.user.interface.ts)
@@ -809,7 +809,7 @@ Output data returned to a user.
 
 - Using Response DTOs ensures clients only receive data described in DTOs contract, not everything that your model/entity owns (which may result in data leaks).
 
-Examples:
+**Примеры**:
 
 - [user.response.dto.ts](src/modules/user/dtos/user.response.dto.ts)
 - [user.interface.ts](src/interface-adapters/interfaces/user/user.interface.ts)
@@ -854,7 +854,7 @@ Infrastructure layer can contain `Adapters`, database related files like `Reposi
 - Adapters are essentially an implementation of ports. They are not supposed to be called directly in any point in code, only through ports(interfaces).
 - Adapters can be used as Anti-Corruption Layer (ACL) for legacy code.
 
-Read more on ACL: [Anti-Corruption Layer: How to Keep Legacy Support from Breaking New Systems](https://www.cloudbees.com/blog/anti-corruption-layer-how-keep-legacy-support-breaking-new-systems)
+**Подробнее об этом**: [Anti-Corruption Layer: How to Keep Legacy Support from Breaking New Systems](https://www.cloudbees.com/blog/anti-corruption-layer-how-keep-legacy-support-breaking-new-systems)
 
 Adapters should have:
 
@@ -896,14 +896,14 @@ Over time, when the amount of data grows, there may be a need to make some chang
 
 An alternative to using Persistence Models may be raw queries or some sort of a query builder, in this case you may not need to create `ORM Entities` or `Schemas`.
 
-**Note**: separating domain and persistance models may be an overkill for smaller applications, consider all pros and cons before making this decision.
+**Примечание**: separating domain and persistance models may be an overkill for smaller applications, consider all pros and cons before making this decision.
 
-Example files:
+**Примеры**:
 
 - [user.orm-entity.ts](src/modules/user/database/user.orm-entity.ts) <- Persistence model using [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping).
 - [user.orm-mapper.ts](src/modules/user/database/user.orm-mapper.ts) <- Persistence models should also have a corresponding mapper to map from domain to persistence and back.
 
-Read more:
+**Подробнее об этом**:
 
 - [Stack Overflow question: DDD - Persistence Model and Domain Model](https://stackoverflow.com/questions/14024912/ddd-persistence-model-and-domain-model)
 - [Just Stop It! The Domain Model Is Not The Persistence Model](https://blog.sapiensworks.com/post/2012/04/07/Just-Stop-It!-The-Domain-Model-Is-Not-The-Persistence-Model.aspx)
@@ -950,7 +950,7 @@ However, remember:
 
 > It's easier to refactor over-design than it is to refactor no design.
 
-Read more:
+**Подробнее об этом**:
 
 - [Martin Fowler blog: Yagni](https://martinfowler.com/bliki/Yagni.html)
 - [7 Software Development Principles That Should Be Embraced Daily](https://betterprogramming.pub/7-software-development-principles-that-should-be-embraced-daily-c26a94ec4ecc?gi=3b5b298ddc23)
@@ -994,16 +994,16 @@ Consider adding optional `metadata` object to exceptions (if language doesn't su
 ### Other recommendations
 
 - If translations of error messages to other languages is needed, consider storing those error messages in a separate object/class rather than inline string literals. This will make it easier to implement localization by adding conditional getters. Also, it is usually better to store all localization in a single place, for example, having a single file/folder for all messages that need translation, and then import them where needed. It is easier to add new translations when all of your messages are in one place rather then scattered across the app.
-- You can use "Problem Details for HTTP APIs" standard for returned exceptions, described in [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807). Read more about this standard: [REST API Error Handling - Problem Details Response](https://blog.restcase.com/rest-api-error-handling-problem-details-response/)
+- You can use "Problem Details for HTTP APIs" standard for returned exceptions, described in [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807). **Подробнее об этом**: [REST API Error Handling - Problem Details Response](https://blog.restcase.com/rest-api-error-handling-problem-details-response/)
 - By default in NodeJS Error objects are not serialized properly when sending plain objects to external processes. Consider creating a `toJSON()` method so it can be easily sent to other processes as a plain object. (see example in [exception.base.ts](src/libs/exceptions/exception.base.ts)). But keep in mind not to return a stack trace when in production.
 
-Example files:
+**Примеры**:
 
 - [exception.base.ts](src/libs/exceptions/exception.base.ts) - Exception abstract base class
 - [argument-invalid.exception.ts](src/libs/exceptions/argument-invalid.exception.ts) - Generic exception class example
 - Check [exceptions](src/libs/exceptions) folder to see more examples (some of them are exceptions from other languages like C# or Java)
 
-Read more:
+**Подробнее об этом**:
 
 - [Better error handling in JavaScript](https://iaincollins.medium.com/error-handling-in-javascript-a6172ccdf9af)
 - ["Secure by design" Chapter 9: Handling failures securely](https://livebook.manning.com/book/secure-by-design/chapter-9/)
@@ -1036,16 +1036,16 @@ Behavioral tests can be divided in two parts:
 - Fast: Use cases tests in isolation which test only your business logic, with all I/O (external API or database calls, file reads etc.) mocked. This makes tests fast so they can be run all the time (after each change or before every commit). This will inform you when something fails as fast as possible. Finding bugs early is critical and saves a lot of time.
 - Slow: Full [End to End](https://www.guru99.com/end-to-end-testing.html) (e2e) tests which test a use case from end-user standpoint. Instead of injecting I/O mocks those tests should have all infrastructure up and running: like database, API routes etc. Those tests check how everything works together and are slower so can be run only before pushing/deploying. Though e2e tests live in the same project/repository, it is a good practice to have e2e tests independent from project's code. In bigger projects e2e tests are usually written by a separate QA team.
 
-**Note**: some people try to make e2e tests faster by using in-memory or embedded databases (like [sqlite3](https://www.npmjs.com/package/sqlite3)). This makes tests faster, but reduces the reliability of those tests and should be avoided. Read more: [Don't use In-Memory Databases for Tests](https://phauer.com/2017/dont-use-in-memory-databases-tests-h2/).
+**Примечание**: some people try to make e2e tests faster by using in-memory or embedded databases (like [sqlite3](https://www.npmjs.com/package/sqlite3)). This makes tests faster, but reduces the reliability of those tests and should be avoided. **Подробнее об этом**: [Don't use In-Memory Databases for Tests](https://phauer.com/2017/dont-use-in-memory-databases-tests-h2/).
 
 For BDD tests [Cucumber](https://cucumber.io/) with [Gherkin](https://cucumber.io/docs/gherkin/reference/) syntax can give a structure and meaning to your tests. This way even people not involved in a development can define steps needed for testing. In node.js world [jest-cucumber](https://www.npmjs.com/package/jest-cucumber) is a nice package to achieve that.
 
-Example files:
+**Примеры**:
 
 - [create-user.feature](tests/user/create-user/create-user.feature) - feature file that contains Gherkin steps
 - [create-user.e2e-spec.ts](tests/user/create-user/create-user.e2e-spec.ts) - spec file that executes Gherkin steps
 
-Read more:
+**Подробнее об этом**:
 
 - [Pragmatic unit testing](https://enterprisecraftsmanship.com/posts/pragmatic-unit-testing/)
 - [Google Blog: Test Behavior, Not Implementation ](https://testing.googleblog.com/2013/08/testing-on-toilet-test-behavior-not.html)
@@ -1065,11 +1065,11 @@ Example tools:
 - [k6](https://github.com/grafana/k6)
 - [Artillery](https://www.npmjs.com/package/artillery) is a load testing tool based on NodeJS.
 
-Example files:
+**Примеры**:
 
 - [create-user.artillery.yaml](tests/user/create-user/create-user.artillery.yaml) - Artillery load testing config file. Also can be useful for seeding database with dummy data.
 
-More info:
+**Подробнее об этом**:
 
 - [Top 6 Tools for API & Load Testing](https://medium.com/@Dickson_Mwendia/top-6-tools-for-api-load-testing-7ff51d1ac1e8).
 - [Getting started with API Load Testing (Stress, Spike, Load, Soak)](https://www.youtube.com/watch?v=r-Jte8Y8zag)
@@ -1097,7 +1097,7 @@ Example tools:
 - [Artillery Fuzzer](https://www.npmjs.com/package/artillery-plugin-fuzzer) is a plugin for [Artillery](https://www.npmjs.com/package/artillery) to perform Fuzz testing.
 - [sqlmap](https://github.com/sqlmapproject/sqlmap) - an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws
 
-Read more:
+**Подробнее об этом**:
 
 - [Fuzz Testing(Fuzzing) Tutorial: What is, Types, Tools & Example](https://www.guru99.com/fuzz-testing.html)
 
@@ -1110,7 +1110,7 @@ Read more:
 - Application should fail and provide the immediate feedback if the required environment variables are not present at start-up.
 - For most projects plain object configs may be enough, but there are other options, for example: [NestJS Configuration](https://docs.nestjs.com/techniques/configuration), [rc](https://www.npmjs.com/package/rc), [nconf](https://www.npmjs.com/package/nconf) or any other package.
 
-Example files:
+**Примеры**:
 
 - [ormconfig.ts](src/infrastructure/configs/ormconfig.ts) - this is typeorm database config file. Notice `process.env` - those are environmental variables.
 - [.env.example](.env.example) - this is [dotenv](https://www.npmjs.com/package/dotenv) example file. This file should only store dummy example secret keys, never store actual development/production secrets in it. This file later is renamed to `.env` and populated with real keys for every environment (local, dev or prod). Don't forget to add `.env` to [.gitignore](.gitignore) file to avoid pushing it to repo and leaking all keys.
@@ -1127,10 +1127,10 @@ Example files:
 - Use consistent structure across all logs. Each log line should represent one single event and can contain things like a timestamp, context, unique user id or correlation id and/or id of an entity/aggregate that is being modified, as well as additional metadata if required.
 - Use log managements systems. This will allow you to track and analyze logs as they happen in real-time. Here are some short list of log managers: [Sentry](https://sentry.io/for/node/), [Loggly](https://www.loggly.com/), [Logstash](https://www.elastic.co/logstash), [Splunk](https://www.splunk.com/) etc.
 - Send notifications of important events that happen in production to a corporate chat like Slack or even by SMS.
-- Don't write logs to a file from your program. Write all logs to [stdout](https://www.computerhope.com/jargon/s/stdout.htm) (to a terminal window) and let other tools handle writing logs to a file (for example [docker supports writing logs to a file](https://docs.docker.com/config/containers/logging/configure/)). Read more: [Why should your Node.js application not handle log routing?](https://www.coreycleary.me/why-should-your-node-js-application-not-handle-log-routing/)
+- Don't write logs to a file from your program. Write all logs to [stdout](https://www.computerhope.com/jargon/s/stdout.htm) (to a terminal window) and let other tools handle writing logs to a file (for example [docker supports writing logs to a file](https://docs.docker.com/config/containers/logging/configure/)). **Подробнее об этом**: [Why should your Node.js application not handle log routing?](https://www.coreycleary.me/why-should-your-node-js-application-not-handle-log-routing/)
 - Logs can be visualized by using a tool like [Kibana](https://www.elastic.co/kibana).
 
-Read more:
+**Подробнее об этом**:
 
 - [Make your app transparent using smart logs](https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/production/smartlogging.md)
 
@@ -1154,7 +1154,7 @@ Choose health monitoring tools depending on your needs, here are some examples:
 
 - [Sematext](https://sematext.com/), [AppSignal](https://appsignal.com/), [Prometheus](https://prometheus.io/), [Checkly](https://www.checklyhq.com/), [ClinicJS](https://clinicjs.org/)
 
-Read more:
+**Подробнее об этом**:
 
 - [Essential Guide to API Monitoring: Basics Metrics & Choosing the Best Tools](https://sematext.com/blog/api-monitoring/)
 
@@ -1184,12 +1184,12 @@ Keep in mind that this project's folder/file structure is an example and might n
 
 There are different approaches to file/folder structuring, like explicitly separating each layer into a corresponding folder. This defines boundaries more clearly but is harder to navigate. Choose what suits better for the project/personal preference.
 
-Examples:
+**Примеры**:
 
 - [Commands](src/modules/user/commands) folder contains all state changing use cases and each use case inside it contains most of the things that it needs: controller, service, dto, command etc.
 - [Queries](src/modules/user/queries) folder is structured in the same way as commands but contains data retrieval use cases.
 
-Read more:
+**Подробнее об этом**:
 
 - [Out with the Onion, in with Vertical Slices](https://medium.com/@jacobcunningham/out-with-the-onion-in-with-vertical-slices-c3edfdafe118)
 - [Vertical Slice Architecture](https://jimmybogard.com/vertical-slice-architecture/)
@@ -1198,7 +1198,7 @@ Read more:
 
 Consider giving a descriptive type names to files after a dot "`.`", like `*.service.ts` or `*.entity.ts`. This makes it easier to differentiate what files does what and makes it easier to find those files using [fuzzy search](https://en.wikipedia.org/wiki/Approximate_string_matching) (`CTRL+P` for Windows/Linux and `⌘+P` for MacOS in VSCode to try it out).
 
-Read more:
+**Подробнее об этом**:
 
 - [Angular Style Guides: Separate file names with dots and dashes](https://angular.io/guide/styleguide#separate-file-names-with-dots-and-dashes).
 
@@ -1233,11 +1233,11 @@ Also, enabling strict mode in `tsconfig.json` is recommended, this will disallow
   }
 ```
 
-Example file: [.eslintrc.js](.eslintrc.js)
+**Примеры**: [.eslintrc.js](.eslintrc.js)
 
 [Code Spell Checker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker) may be a good addition to eslint.
 
-Read more:
+**Подробнее об этом**:
 
 - [What Is Static Analysis?](https://www.perforce.com/blog/sca/what-static-analysis)
 - [Controlling Type Checking Strictness in TypeScript](https://www.carlrippon.com/controlling-type-checking-strictness-in-typescript/)
@@ -1248,7 +1248,7 @@ The way code looks adds to our understanding of it. Good style makes reading cod
 
 Consider using code formatters like [Prettier](https://www.npmjs.com/package/prettier) to maintain same code styles in the project.
 
-Read more:
+**Подробнее об этом**:
 
 - [Why Coding Style Matters](https://www.smashingmagazine.com/2012/10/why-coding-style-matters/)
 
@@ -1260,12 +1260,12 @@ Here are some useful tips to help users/other developers to use your program.
 
 Use [OpenAPI](https://swagger.io/specification/) (Swagger) or [GraphQL](https://graphql.org/) specifications. Document in details every endpoint. Add description and examples of every request, response, properties and exceptions that endpoints may return or receive as body/parameters. This will help greatly to other developers and users of your API.
 
-Example files:
+**Примеры**:
 
 - [user.response.dto.ts](src/modules/user/dtos/user.response.dto.ts) - notice `@ApiProperty()` decorators. This is [NestJS Swagger](https://docs.nestjs.com/openapi/types-and-parameters) module.
 - [create-user.http.controller.ts](src/modules/user/commands/create-user/create-user.http.controller.ts) - notice `@ApiOperation()` and `@ApiResponse()` decorators.
 
-Read more:
+**Подробнее об этом**:
 
 - [Documenting a NodeJS REST API with OpenApi 3/Swagger](https://medium.com/wolox/documenting-a-nodejs-rest-api-with-openapi-3-swagger-5deee9f50420)
 - [Best Practices in API Documentation](https://swagger.io/blog/api-documentation/best-practices-in-api-documentation/)
@@ -1283,7 +1283,7 @@ Code can be self-documenting to some degree. One useful trick is to separate com
 
 This makes code easier to understand and maintain.
 
-Read more:
+**Подробнее об этом**:
 
 - [Tips for Writing Self-Documenting Code](https://itnext.io/tips-for-writing-self-documenting-code-e54a15e9de2?gi=424f36cc1604)
 
@@ -1299,7 +1299,7 @@ Use comments only in some special cases, like when writing an counter-intuitive 
 
 For documenting public APIs use code annotations (like [JSDoc](https://en.wikipedia.org/wiki/JSDoc)) instead of comments, this works nicely with code editor [intellisense](https://code.visualstudio.com/docs/editor/intellisense).
 
-Read more:
+**Подробнее об этом**:
 
 - [Code Comment Is A Smell](https://fagnerbrack.medium.com/code-comment-is-a-smell-4e8d78b0415b)
 - [// No comments](https://medium.com/swlh/stop-adding-comments-to-your-code-80a3575519ad)
@@ -1308,7 +1308,7 @@ Read more:
 
 Types give useful semantic information to a developer and can be useful for documenting code, so prefer static typed languages to dynamic typed (untyped) languages for larger projects (for example by using TypeScript over JavaScript).
 
-**Note**: For smaller projects/scripts/jobs static typing may not be needed.
+**Примечание**: For smaller projects/scripts/jobs static typing may not be needed.
 
 ## Make application easy to setup
 
@@ -1322,7 +1322,7 @@ This is a bad practice and should be avoided. Setting up project after downloadi
 - Database seeding and migrations (described below)
 - or any other tools.
 
-Example files:
+**Примеры**:
 
 - [package.json](package.json) - notice all added scripts for launching tests, migrations, seeding, docker environment etc.
 - [docker-compose.yml](docker/docker-compose.yml) - after configuring everything in a docker-compose file, running a database and a db admin panel (and any other additional tools) can be done using only one command. This way there is no need to install and configure a database separately.
@@ -1333,7 +1333,7 @@ To avoid manually creating data in the database, seeding is a great solution to 
 
 This project uses [typeorm-seeding](https://www.npmjs.com/package/typeorm-seeding#-using-entity-factory) package.
 
-Example file: [user.seeds.ts](src/modules/user/database/seeding/user.seeds.ts)
+**Примеры**: [user.seeds.ts](src/modules/user/database/seeding/user.seeds.ts)
 
 ## Migrations
 
@@ -1349,7 +1349,7 @@ Migrations should be generated every time database table schema is changed. When
 
 This project uses [Typeorm Migrations](https://github.com/typeorm/typeorm/blob/master/docs/migrations.md) which automatically generates sql table schema migrations like this:
 
-Example file: [1611765824842-CreateTables.ts](src/infrastructure/database/migrations/1611765824842-CreateTables.ts)
+**Примеры**: [1611765824842-CreateTables.ts](src/infrastructure/database/migrations/1611765824842-CreateTables.ts)
 
 Seeds and migrations belong to Infrastructure layer.
 
@@ -1363,7 +1363,7 @@ To solve this, implementing [Rate Limiting](https://en.wikipedia.org/wiki/Rate_l
 - Another alternative is [NGINX Rate Limiting](https://www.nginx.com/blog/rate-limiting-nginx/).
 - [Kong](https://konghq.com/kong/) has [rate limiting plugin](https://docs.konghq.com/hub/kong-inc/rate-limiting/).
 
-Read more:
+**Подробнее об этом**:
 
 - [Everything You Need To Know About API Rate Limiting ](https://nordicapis.com/everything-you-need-to-know-about-api-rate-limiting/)
 - [Rate-limiting strategies and techniques](https://cloud.google.com/solutions/rate-limiting-strategies-techniques)
@@ -1382,7 +1382,7 @@ Main advantages of automatic code generation are:
 - No hand-coding means less errors and faster implementations. Simple CRUD module can be generated and used right away in seconds without any manual code writing.
 - Using auto-generated code templates ensures that everyone in the team uses the same folder/file structures, name conventions, architectural and code styles.
 
-**Note**:
+**Примечание**:
 
 - To really understand and work with generated templates you need to understand what is being generated and why, so full understanding of an architecture and patterns used is required.
 
@@ -1396,7 +1396,7 @@ Some examples can be found in [types](src/libs/types) folder.
 
 Consider launching tests/code formatting/linting every time you do `git push` or `git commit`. This prevents bad code getting in your repo. [Husky](https://www.npmjs.com/package/husky) is a great tool for that.
 
-Read more:
+**Подробнее об этом**:
 
 - [Git Hooks](https://githooks.com/)
 
@@ -1404,11 +1404,11 @@ Read more:
 
 This can be achieved by making class `final`.
 
-**Note**: in TypeScript, unlike other languages, there is no default way to make class `final`. But there is a way around it using a custom decorator.
+**Примечание**: in TypeScript, unlike other languages, there is no default way to make class `final`. But there is a way around it using a custom decorator.
 
-Example file: [final.decorator.ts](src/libs/decorators/final.decorator.ts)
+**Примеры**: [final.decorator.ts](src/libs/decorators/final.decorator.ts)
 
-Read more:
+**Подробнее об этом**:
 
 - [When to declare classes final](https://ocramius.github.io/blog/when-to-declare-classes-final/)
 - [Final classes by default, why?](https://matthiasnoback.nl/2018/09/final-classes-by-default-why/)
@@ -1422,7 +1422,7 @@ Conventional commits add some useful prefixes to your commit messages, for examp
 
 This creates a common language that makes easier communicating the nature of changes to teammates and also may be useful for automatic package versioning and release notes generation.
 
-Read more:
+**Подробнее об этом**:
 
 - [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
 - [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)

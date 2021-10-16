@@ -600,7 +600,7 @@ type ContactInfo = Email | Phone | [Email, Phone];
 
 Доменные объекты должны защищать свои инварианты. Наличие здесь некоторых правил валидации защитит их состояние от повреждения.
 
-`Value Object` can represent a typed value in domain (a _domain primitive_). The goal here is to encapsulate validations and business logic related only to the represented fields and make it impossible to pass around raw values by forcing a creation of valid `Value Objects` first. This object only accepts values which make sense in its context.
+Объект-значение может представлять типизированное значение в домене (*доменный примитив*). Цель здесь состоит в том, чтобы инкапсулировать валидацию и бизнес-логику, относящиеся только к представленным полям, и сделать невозможным передачу необработанных значений путем принудительного создания изначально валидных объектов-значений. Этот объект принимает только значения, которые имеют смысл в его контексте.
 
 If every argument and return value of a method is valid by definition, you’ll have input and output validation in every single method in your codebase without any extra effort. This will make application more resilient to errors and will protect it from a whole class of bugs and security vulnerabilities caused by invalid input data.
 

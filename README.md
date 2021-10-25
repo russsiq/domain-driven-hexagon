@@ -1,30 +1,3 @@
-## Сентябрьское обновление:
-
-В последнее время в этом репозитории имеется много обновлений.
-
-Добавлены дополнительные примеры кода:
-
-- Добавлен UnitOfWork.
-- Все доменные события теперь могут выполняться в одной транзакции базы данных с помощью UnitOfWork.
-- Добавлен модуль Wallet, чтобы показать пример использования UnitOfWork вместе с доменными событиями.
-- Добавлен пример тестов BDD.
-- Добавлены примеры GraphQL.
-- Добавлены доменные события.
-
-Рефакторинг:
-
-- Рефакторинг доменных событий и обработчиков доменных событий.
-- Команды теперь являются простыми объектами.
-- Общие файлы перемещены в каталог `/libs`.
-- Реорганизованно создание сущности / агрегата.
-- Использование командной шины вместо прямого импорта сервиса.
-- И многое другое.
-
-Обновления в файле `readme` и коде:
-
-- Мое мнение по некоторым темам со временем меняется, поэтому файл `readme` и код постоянно обновляются.
-- В `readme` добавлены дополнительные ресурсы и темы.
-
 # Предметно-ориентированный шестиугольник
 
 Основной упор в этом проекте сделан на предоставление рекомендаций по разработке программных приложений. В этом файле `readme` представлены некоторые техники, инструменты, лучшие практики, архитектурные шаблоны и рекомендации, собранные из разных источников.
@@ -248,7 +221,7 @@ _При необходимости могут быть добавлены дру
 
 Тем не менее, нарушение этого правила и возврат некоторых метаданных, таких как `ID` созданного элемента, ссылки перенаправления, подтверждающего сообщения, статуса или других метаданных, является более практичным подходом, чем следование догмам.
 
-Все изменения, сделанные с помощью команд (или событий или чего-либо еще) в нескольких агрегатах, должны быть сохранены в одной транзакции базы данных (если вы используете одну базу данных). Это означает, что внутри одного процесса одна команда / запрос к вашему приложению обычно должны выполнять **только одну** [транзакционную операцию](https://en.wikipedia.org/wiki/Database_transaction), чтобы сохранить **все** изменения (или отменить **все** изменения этой команды / запроса в случае неудачи). Это нужно делать для сохранения консистентности. Для этого можно использовать что-то вроде [Единица работы](https://www.c-sharpcorner.com/UploadFile/b1df45/unit-of-work-in-repository-pattern/) или аналогичные шаблоны. **Примеры**: [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – обратите внимание, как выполняется получение транзакционного репозитория из `this.unitOfWork`.
+Все изменения, сделанные с помощью команд (или событий или чего-либо еще) в нескольких агрегатах, должны быть сохранены в одной транзакции базы данных (если вы используете одну базу данных). Это означает, что внутри одного процесса одна команда / запрос к вашему приложению обычно должны выполнять **только одну** [транзакционную операцию](https://en.wikipedia.org/wiki/Database_transaction), чтобы сохранить **все** изменения (или отменить **все** изменения этой команды / запроса в случае неудачи). Это нужно делать для сохранения консистентности. Для этого вы можете заключить операции с базой данных в транзакцию или использовать что-то вроде шаблона [Единица работы](https://java-design-patterns.com/patterns/unit-of-work/). **Примеры**: [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – обратите внимание, как выполняется получение транзакционного репозитория из `this.unitOfWork`.
 
 **Примечание**: команда похожа, но не является тем же самым, что описано здесь: [Шаблон Команда](https://refactoring.guru/design-patterns/command). В интернете есть несколько определений с похожими, но немного отличающимися реализациями.
 
@@ -259,7 +232,7 @@ _При необходимости могут быть добавлены дру
 - [create-user.command.ts](src/modules/user/commands/create-user/create-user.command.ts) – объект команды.
 - [create-user.message.controller.ts](src/modules/user/commands/create-user/create-user.message.controller.ts) – контроллер выполняет команду, используя шину. Это отделяет его от обработчика команд.
 - [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – обработчик команд.
-- [command-handler.base.ts](src/libs/ddd/domain/base-classes/command-handler.base.ts) – базовый класс обработчика команд, который оборачивает выполнение в единицу работы.
+- [command-handler.base.ts](src/libs/ddd/domain/base-classes/command-handler.base.ts) – базовый класс обработчика команд, который оборачивает выполнение в транзакцию.
 
 **Подробнее об этом**:
 
@@ -417,7 +390,7 @@ _При необходимости могут быть добавлены дру
 
 Доменные события могут быть полезны при создании [журнала аудита](https://en.wikipedia.org/wiki/Audit_trail) для отслеживания всех изменений важных сущностей путем сохранения каждого события в базе данных. Узнайте больше о том, почему журналы аудита могут быть полезны: [Why soft deletes are evil and what to do instead](https://jameshalsall.co.uk/posts/why-soft-deletes-are-evil-and-what-to-do-instead).
 
-Все изменения, сделанные событиями домена (или чем-либо еще) в нескольких агрегатах в одном процессе, должны быть сохранены в одной транзакции базы данных для обеспечения консистентности. В этом могут помочь такие шаблоны, как [Unit of Work](https://www.c-sharpcorner.com/UploadFile/b1df45/unit-of-work-in-repository-pattern/) или аналогичные.
+Все изменения, сделанные событиями домена (или чем-либо еще) в нескольких агрегатах в одном процессе, должны быть сохранены в одной транзакции базы данных для обеспечения консистентности. В этом вам помогут такие шаблоны, как [Единица работы](https://java-design-patterns.com/patterns/unit-of-work/) или аналогичные.
 
 **Примечание**: в этом проекте используется пользовательская реализация для публикации доменных событий. Причина отказа от использования [Node Event Emitter](https://nodejs.org/api/events.html) или пакетов, которые предлагают шину событий (например, [NestJS CQRS](https://docs.nestjs.com/recipes/cqrs)) заключается в том, что они не предлагают возможности ожидания для завершения всех событий, что полезно, когда все события становятся частью транзакции. Внутри одного процесса должны быть сохранены либо все изменения, внесенные событиями, либо ни одно из них в случае сбоя одного из событий.
 
@@ -429,11 +402,11 @@ _При необходимости могут быть добавлены дру
 - [user-created.domain-event.ts](src/modules/user/domain/events/user-created.domain-event.ts) – простой объект, содержащий данные, относящиеся к опубликованному событию.
 - [create-wallet-when-user-is-created.domain-event-handler.ts](src/modules/wallet/application/event-handlers/create-wallet-when-user-is-created.domain-event-handler.ts) – это пример обработчика доменного события, который выполняет некоторые действия при возникновении доменного события (в этом случае при создании пользователя он также создает кошелек для этого пользователя).
 - [typeorm.repository.base.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm.repository.base.ts) – репозиторий публикует все доменные события для выполнения при сохранении изменений в агрегате.
-- [typeorm-unit-of-work.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm-unit-of-work.ts) – гарантирует, что все будет сохранено в одной транзакции.
+- [typeorm-unit-of-work.ts](src/libs/ddd/infrastructure/database/base-classes/typeorm-unit-of-work.ts) – это гарантирует, что все изменения сохраняются в одной транзакции базы данных. Имейте в виду, что это наивная реализация шаблона *Единицы работы*, поскольку она только оборачивает выполнение в транзакцию. Чтобы правильно реализовать единицу работы, используйте что-то вроде [mikro-orm](https://www.npmjs.com/package/mikro-orm) вместо [typeorm](https://www.npmjs.com/package/typeorm). Узнайте больше о [единице работы с использованием mikro-orm](https://mikro-orm.io/docs/unit-of-work/).
 - [unit-of-work.ts](src/infrastructure/database/unit-of-work/unit-of-work.ts) – здесь вы создаете фабрики для определенных репозиториев домена, которые используются в транзакции.
 - [create-user.service.ts](src/modules/user/commands/create-user/create-user.service.ts) – здесь мы получаем пользовательский репозиторий из `UnitOfWork` и выполняем транзакцию.
 
-**Примечание**: Единица работы (*Unit of work*) не требуется для некоторых операций (например, запросов или операций, которые не вызывают побочных эффектов в других агрегатах), поэтому вы можете пропустить использование единицы работы в таких случаях и просто использовать обычный репозиторий, внедренный через конструктор, а не репозиторий из единицы работы.
+**Примечание**: Транзакции не требуются для некоторых операций (например, запросов или операций, которые не вызывают побочных эффектов в других агрегатах), поэтому вы можете пропустить использование единицы работы в таких случаях и просто использовать обычный репозиторий, внедренный через конструктор, а не транзакционный репозиторий.
 
 Чтобы лучше понять доменные события и их реализацию, прочтите это:
 
@@ -881,23 +854,24 @@ Since domain `Entities` have their data modeled so that it best accommodates dom
 There can be multiple models optimized for different purposes, for example:
 
 - Domain with it's own models - `Entities`, `Aggregates` and `Value Objects`.
-- Persistence layer with it's own models - `ORM` for SQL, `Schemas` for NoSQL, `Read/Write` models if databases are separated into a read and write db ([CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation)) etc.
+- Persistence layer with it's own models - ORM ([Object–relational mapping](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping)), schemas, read/write models if databases are separated into a read and write db ([CQRS](https://en.wikipedia.org/wiki/Command%E2%80%93query_separation)) etc.
 
 Over time, when the amount of data grows, there may be a need to make some changes in the database like improving performance or data integrity by re-designing some tables or even changing the database entirely. Without an explicit separation between `Domain` and `Persistance` models any change to the database will lead to change in your domain `Entities` or `Aggregates`. For example, when performing a database [normalization](https://en.wikipedia.org/wiki/Database_normalization) data can spread across multiple tables rather than being in one table, or vice-versa for [denormalization](https://en.wikipedia.org/wiki/Denormalization). This may force a team to do a complete refactoring of a domain layer which may cause unexpected bugs and challenges. Separating Domain and Persistance models prevents that.
-
-An alternative to using Persistence Models may be raw queries or some sort of a query builder, in this case you may not need to create `ORM Entities` or `Schemas`.
 
 **Примечание**: separating domain and persistance models may be an overkill for smaller applications, consider all pros and cons before making this decision.
 
 **Примеры**:
 
-- [user.orm-entity.ts](src/modules/user/database/user.orm-entity.ts) <- Persistence model using [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping).
+- [user.orm-entity.ts](src/modules/user/database/user.orm-entity.ts) <- Persistence model using ORM.
 - [user.orm-mapper.ts](src/modules/user/database/user.orm-mapper.ts) <- Persistence models should also have a corresponding mapper to map from domain to persistence and back.
+
+Alternative approach to ORM are raw queries or some sort of a query builder (like [knex](https://www.npmjs.com/package/knex)). This may be a better approach for bigger projects than Object-Relational Mapping since it offers more flexibility and better performance.
 
 **Подробнее об этом**:
 
 - [Stack Overflow question: DDD - Persistence Model and Domain Model](https://stackoverflow.com/questions/14024912/ddd-persistence-model-and-domain-model)
 - [Just Stop It! The Domain Model Is Not The Persistence Model](https://blog.sapiensworks.com/post/2012/04/07/Just-Stop-It!-The-Domain-Model-Is-Not-The-Persistence-Model.aspx)
+- [Comparing SQL, query builders, and ORMs](https://www.prisma.io/dataguide/types/relational/comparing-sql-query-builders-and-orms)
 - [Secure by Design: Chapter 6.2.2 ORM frameworks and no-arg constructors](https://livebook.manning.com/book/secure-by-design/chapter-6/40)
 
 ## Other things that can be a part of Infrastructure layer:

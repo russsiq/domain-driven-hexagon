@@ -575,7 +575,7 @@ type ContactInfo = Email | Phone | [Email, Phone];
 
 Объект-значение может представлять типизированное значение в домене (*доменный примитив*). Цель здесь состоит в том, чтобы инкапсулировать валидацию и бизнес-логику, относящиеся только к представленным полям, и сделать невозможным передачу необработанных значений путем принудительного создания изначально валидных объектов-значений. Этот объект принимает только значения, которые имеют смысл в его контексте.
 
-If every argument and return value of a method is valid by definition, you’ll have input and output validation in every single method in your codebase without any extra effort. This will make application more resilient to errors and will protect it from a whole class of bugs and security vulnerabilities caused by invalid input data.
+Если каждый аргумент и возвращаемое значение метода допустимы по определению, то у вас будет валидация ввода и вывода в каждом отдельном методе в вашей кодовой базе без каких-либо дополнительных усилий. Это сделает приложение более устойчивым к ошибкам и защитит его от целого класса ошибок и уязвимостей безопасности, вызванных невалидными входными данными.
 
 Data should not be trusted. There are a lot of cases when invalid data may end up in a domain. For example, if data comes from external API, database, or if it's just a programmer error.
 
